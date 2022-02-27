@@ -6,14 +6,27 @@ import xml2json from './utils/xml2json';
 function App() {
 
   const [bggData, setbggData] = useState();
+  const [dataFetched, setdataFetched] = useState(false);
 
-  fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
-    .then(response => response.text())
-    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-    .then(data => {
-      var bggData = JSON.parse(xml2json(data, ''))
-      setbggData(bggData);
-    });
+  if (!dataFetched) {
+    setdataFetched(true);
+    fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
+      .then(response => response.text())
+      .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+      .then(data => {
+        const collectionData = JSON.parse(xml2json(data, ''))
+        setbggData(collectionData);
+        const gameIds = collectionData?.items.item.map(game => game['@objectid']);
+        fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+          .then(response => response.text())
+          .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+          .then(data => {
+            console.log('we have data')
+            const games = JSON.parse(xml2json(data, ''));
+            console.log(games);
+          })
+      });
+  }
 
   const onSwipe = (direction) => {
     console.log('You swiped: ' + direction)
