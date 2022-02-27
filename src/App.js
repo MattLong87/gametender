@@ -22,6 +22,7 @@ function App() {
           .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
           .then(data => {
             console.log('we have data')
+            console.log(data)
             const games = JSON.parse(xml2json(data, ''));
             console.log(games);
           })
