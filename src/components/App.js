@@ -4,6 +4,7 @@ import TinderCard from 'react-tinder-card';
 import xml2json from '../utils/xml2json';
 import returnedData from '../games.json';
 import GameCard from './GameCard';
+import SetupScreen from './SetupScreen';
 
 function App() {
 
@@ -50,7 +51,8 @@ function App() {
 
   return (
     <>
-    {cards}
+    <SetupScreen />
+    { /*cards*/ }
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
