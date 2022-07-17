@@ -6,11 +6,15 @@ const Card = styled.div`
     display: flex;
     flex-direction: column;
     padding: 40px;
+    background: white;
+    height: 60vh;
 `
 
 const GameName = styled.span`
     font-size: 36px;
     margin-top: 20px;
+    font-weight: 300;
+    letter-spacing: -1px;
 `
 
 export default function GameCard(game) {
@@ -18,7 +22,7 @@ export default function GameCard(game) {
     const name = gameData.name[0]['_value'];
     return (
         <Card>
-            <img src={gameData.thumbnail} />
+            <img src={gameData.image} />
             <GameName>{name}</GameName>
         </Card>
     )

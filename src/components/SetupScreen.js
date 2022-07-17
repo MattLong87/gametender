@@ -6,7 +6,6 @@ const Screen = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: white;
     height: 100vh;
     color: #333;
 `
@@ -20,23 +19,30 @@ const Container = styled.div`
 `
 const Title = styled.h1`
     text-align: center;
+    font-weight: 800;
+    font-size: 66px;
+    margin-top: 0;
+    letter-spacing: -1px;
 `
 
 const Filter = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 `
 
 const Label = styled.label`
-    font-size: 20px;
+    font-size: 30px;
+    font-weight: 300;
+    margin-bottom: 10px;
 `
 
 const DropDown = styled.select`
-    font-size: 20px;
+    font-size: 30px;
+    padding: 20px 32px;
 `
 
 const Button = styled.button`
-    width: 100%;
     background-color: #08AEEA;
     background-image: linear-gradient(342deg, #08AEEA 0%, #2AF598 100%);    
     border: none;
@@ -48,6 +54,10 @@ const Button = styled.button`
     letter-spacing: 2px;
     margin-top: 20px;
     box-shadow: 0 2px 0px 1px hsl(194deg 77% 37%);
+    position: fixed;
+    bottom: 40px;
+    left: 5vw;
+    width: 90vw;
 `
 
 export default class SetupScreen extends React.Component {

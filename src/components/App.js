@@ -45,14 +45,14 @@ function App() {
 
   var cards = games.map((game, key) => (
     <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
-        <GameCard game={game} />
+      <GameCard game={game} />
     </TinderCard>
   ))
 
   return (
     <>
-    <SetupScreen />
-    { /*cards*/ }
+      {/* <SetupScreen /> */}
+      {cards}
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
