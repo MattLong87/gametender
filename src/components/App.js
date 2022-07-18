@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import './App.css';
-import TinderCard from 'react-tinder-card';
-import xml2json from '../utils/xml2json';
-import returnedData from '../games.json';
-import GameCard from './GameCard';
 import SetupScreen from './SetupScreen';
+import RatingScreen from './RatingScreen';
+import xml2json from '../utils/xml2json';
 
 function App() {
 
@@ -32,27 +30,11 @@ function App() {
   //     });
   // }
 
-  const onSwipe = (direction) => {
-    console.log('You swiped: ' + direction)
-  }
-
-  const onCardLeftScreen = (myIdentifier) => {
-    console.log(myIdentifier + ' left the screen')
-  }
-
-  var games = returnedData.items.item;
-  console.log(games);
-
-  var cards = games.map((game, key) => (
-    <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
-      <GameCard game={game} />
-    </TinderCard>
-  ))
 
   return (
     <>
       {/* <SetupScreen /> */}
-      {cards}
+      <RatingScreen />
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
