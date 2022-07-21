@@ -3,6 +3,7 @@ import './App.css';
 import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
 import xml2json from '../utils/xml2json';
+import SortFunction from './SortFunction';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
     <>
       {/* <SetupScreen /> */}
       <RatingScreen />
+      <SortFunction />
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
