@@ -2,3 +2,7 @@
 body{
   font-family: 'Work Sans', sans-serif;
 }
+
+body * {
+  box-sizing: border-box;
+}

@@ -34,9 +34,9 @@ function App() {
 
   return (
     <>
-      {/* <SetupScreen /> */}
-      <RatingScreen />
-      <SortFunction />
+      <SetupScreen />
+      {/* <RatingScreen /> */}
+      {/* <SortFunction /> */}
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}

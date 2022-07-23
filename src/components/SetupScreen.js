@@ -17,6 +17,7 @@ const Container = styled.div`
     padding: 30px;
     box-sizing: border-box;
 `
+
 const Title = styled.h1`
     text-align: center;
     font-weight: 800;
@@ -29,6 +30,7 @@ const Filter = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 20px;
 `
 
 const Label = styled.label`
@@ -60,6 +62,12 @@ const Button = styled.button`
     width: 90vw;
 `
 
+const Input = styled.input`
+    font-size: 30px;
+    padding: 20px 32px;
+    width: 100%;
+`
+
 export default class SetupScreen extends React.Component {
     render() {
         return (
@@ -67,6 +75,10 @@ export default class SetupScreen extends React.Component {
                 <Container>
                     <Title>Setup</Title>
                     <Filter>
+                        <Label>BGG Username</Label>
+                        <Input onChange={(e) => console.log(e.target.value)} />
+                    </Filter>
+                    <Filter onChange={(e) => console.log(e.target.value)} >
                         <Label>Players</Label>
                         <DropDown>
                             <option>1</option>
