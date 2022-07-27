@@ -9,6 +9,14 @@ function App() {
 
   // const [bggData, setbggData] = useState();
   // const [dataFetched, setdataFetched] = useState(false);
+  const [input, setInput] = useState([]);
+  const createInput = (newInput) =>   //Do you need those curly brackets? newRecipe is an object, but try both
+  setInput((currentInput) => [
+  newInput
+  ]);
+
+
+
 
   // if (!dataFetched) {
   //   setdataFetched(true);
@@ -34,9 +42,9 @@ function App() {
 
   return (
     <>
-      <SetupScreen />
+      <SetupScreen createInput={createInput}/>
       {/* <RatingScreen /> */}
-      {/* <SortFunction /> */}
+      {/*<SortFunction input={input} /> NEXT: Get this to play nice with input state object */} 
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}

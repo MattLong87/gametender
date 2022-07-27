@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const Screen = styled.div`
@@ -68,19 +68,45 @@ const Input = styled.input`
     width: 100%;
 `
 
-export default class SetupScreen extends React.Component {
-    render() {
+export default function SetupScreen({createInput}) {
+    let initialFormState = {
+        playercount: "2",
+        playtime: "short"
+      };
+
+      const [formData, setFormData] = useState({ ...initialFormState });
+      const handleChange = ({ target }) => {
+        const value =  target.value;
+        setFormData({
+          ...formData,
+          [target.name]: value,
+        });
+      };
+     
+    
+      const handleSubmit = (event) => {
+        event.preventDefault();
+        createInput(formData);
+        console.log("Submitted:", formData); //Replace...
+        //setFormData({ ...initialFormState }); This will clear the form...
+      };
+
         return (
             <Screen>
                 <Container>
                     <Title>Setup</Title>
+                    <form onSubmit={handleSubmit}>
                     <Filter>
                         <Label>BGG Username</Label>
                         <Input onChange={(e) => console.log(e.target.value)} />
                     </Filter>
-                    <Filter onChange={(e) => console.log(e.target.value)} >
-                        <Label>Players</Label>
-                        <DropDown>
+                    <Filter>
+                    <Label htmlFor="playercount">Players</Label>
+                        <DropDown
+                        id="playercount"
+                        name="playercount"
+                        onChange={handleChange}
+                        value={formData.playercount}>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
@@ -90,10 +116,57 @@ export default class SetupScreen extends React.Component {
                             <option>7</option>
                             <option>8+</option>
                         </DropDown>
-                    </Filter>
-                    <Button>START</Button>
+                     </Filter>
+                     <Filter>
+                       <Label>Game Length</Label>
+                       <Label htmlFor="short">
+                        Under 30 minutes
+                        <input
+                          id="short"
+                          type="radio"
+                          name="playtime"
+                          onChange={handleChange}
+                          value="30"
+                          checked={formData.playtime === "30"}
+                        />
+                       </Label>
+                       <Label htmlFor="average">
+                        About an hour
+                        <input
+                          id="average"
+                          type="radio"
+                          name="playtime"
+                          onChange={handleChange}
+                          value="60"
+                          checked={formData.playtime === "60"}
+                        />
+                        </Label>
+                        <Label htmlFor="long">
+                        About two hours
+                        <input
+                          id="long"
+                          type="radio"
+                          name="playtime"
+                          onChange={handleChange}
+                          value="120"
+                          checked={formData.playtime === "120"}
+                        />
+                        </Label>
+                        <Label htmlFor="very long">
+                        Over two hours
+                        <input
+                          id="very long"
+                          type="radio"
+                          name="playtime"
+                          onChange={handleChange}
+                          value="240"
+                          checked={formData.playtime === "240"}
+                        />
+                        </Label>
+                      </Filter>
+                    <Button onClick={()=> handleSubmit}>START</Button>
+                    </form>
                 </Container>
             </Screen>
         );
-    }
-}
+    };

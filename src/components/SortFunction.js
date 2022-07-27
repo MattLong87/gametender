@@ -2,12 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import returnedData from '../games.json';
 
-const input = {
-    playercount: "7",
-    playtime: 240  //Add functionality that produces a number based on Long, Medium, Regular, Short
-}
 
-export default function SortFunction() {
+
+export default function SortFunction({input}) {
 
     var games = returnedData.items.item;
 
