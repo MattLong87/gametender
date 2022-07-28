@@ -1,0 +1,24 @@
+.radio-options input{
+    display: none;
+}
+.radio-options input[type="radio"]:checked + label {
+    font-weight: bold;
+}
+
+.radio-options{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    background: #ddd;
+    grid-gap: 1px;
+}
+
+.radio-options > div{
+    text-align: center;
+    background: #eee;
+    padding: 10px 0px;
+}
+
+.radio-options label{
+    font-size: 16px;
+}
