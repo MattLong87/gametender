@@ -9,11 +9,29 @@ function App() {
 
   // const [bggData, setbggData] = useState();
   // const [dataFetched, setdataFetched] = useState(false);
-  const [input, setInput] = useState([]);
-  const createInput = (newInput) =>   //Do you need those curly brackets? newRecipe is an object, but try both
-  setInput((currentInput) => [
-  newInput
-  ]);
+
+  let initialFormState = {
+    playercount: "2",
+    playtime: "30"
+  };
+
+  const [formData, setFormData] = useState({ ...initialFormState });
+  const handleChange = ({ target }) => {
+    const value = target.value;
+    setFormData({
+      ...formData,
+      [target.name]: value,
+    });
+  };
+
+  const [presentList, setPresentList] = useState([])
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Submitted:", formData); 
+    const outputArray = SortFunction({formData});
+    setPresentList(outputArray);
+  };
+
 
 
 
@@ -39,17 +57,34 @@ function App() {
   //     });
   // }
 
-
-  return (
+if (presentList.length >= 1)
+  {
+    console.log(presentList);
+    return (
+      <>
+      <h2>Games</h2>
+      <ul>
+        {presentList.map((game) => (
+         <div>
+          <h5>{game.name[0]['_value']}</h5>
+          <p>{game.minplayers['_value']} to {game.maxplayers['_value']} players</p>
+          <p>{game.playingtime['_value']} minutes playing time</p>
+         </div>
+        ))}
+      </ul>
+    </>
+    )
+  } else {
+    return (
     <>
-      <SetupScreen createInput={createInput}/>
+      <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit}/>
       {/* <RatingScreen /> */}
-      {/*<SortFunction input={input} /> NEXT: Get this to play nice with input state object */} 
       {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
     </>
-  )
+    )
+  }
 }
 
 export default App;

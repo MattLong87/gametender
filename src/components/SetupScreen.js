@@ -75,28 +75,8 @@ const Input = styled.input`
 
 const RadioOption = styled.div``;
 
-export default function SetupScreen({ createInput }) {
-  let initialFormState = {
-    playercount: "2",
-    playtime: "30"
-  };
+export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
-  const [formData, setFormData] = useState({ ...initialFormState });
-  const handleChange = ({ target }) => {
-    const value = target.value;
-    setFormData({
-      ...formData,
-      [target.name]: value,
-    });
-  };
-
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    createInput(formData);
-    console.log("Submitted:", formData); //Replace...
-    //setFormData({ ...initialFormState }); This will clear the form...
-  };
 
   return (
     <Screen>
