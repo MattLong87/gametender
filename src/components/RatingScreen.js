@@ -56,7 +56,7 @@ export default function RatingScreen(props) {
             )
         }
         else if (key > ratingState.currentPosition && key <= ratingState.currentPosition + 3) {
-            return <GameCard game={game} />;
+            return <GameCard game={game} key={key} />;
         }
         else {
             return;
