@@ -39,7 +39,20 @@ export default function RatingScreen(props) {
 
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
-        setRatingState({ ...ratingState, currentPosition: ratingState.currentPosition + 1 })
+        if (direction === 'right') {
+            const newGamesList = ratingState.gamesList.map((game, i) => {
+                if (ratingState.currentPosition == i) {
+                    return { ...game, votes: game.votes ? game.votes + 1 : 1 } //if there's no votes property, sets it to 1, otherwise increment by 1
+                }
+                else {
+                    return game;
+                }
+            })
+            setRatingState({ ...ratingState, gamesList: newGamesList, ratingState, currentPosition: ratingState.currentPosition + 1 })
+        }
+        else if (direction === 'left') {
+            setRatingState({ ...ratingState, currentPosition: ratingState.currentPosition + 1 })
+        }
     }
 
     const onCardLeftScreen = (myIdentifier) => {
@@ -71,7 +84,7 @@ export default function RatingScreen(props) {
                 </CardContainer>)
                 :
                 <div>RATING COMPLETE</div>}
-            <Button>Next Player →</Button>
+            <Button onClick={() => setRatingState({ ...ratingState, currentPosition: 0 })}>Next Player →</Button>
         </>
     )
 }
