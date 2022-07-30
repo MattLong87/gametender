@@ -34,6 +34,7 @@ export default function RatingScreen(props) {
 
     const [ratingState, setRatingState] = useState({
         currentPosition: 0,
+        playersCompleted: 0,
         gamesList: props.gamesList
     });
 
@@ -84,7 +85,7 @@ export default function RatingScreen(props) {
                 </CardContainer>)
                 :
                 <div>RATING COMPLETE</div>}
-            <Button onClick={() => setRatingState({ ...ratingState, currentPosition: 0 })}>Next Player →</Button>
+            <Button onClick={() => setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 })}>Next Player →</Button>
         </>
     )
 }
