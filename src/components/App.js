@@ -62,7 +62,8 @@ if (presentList.length >= 1)
     console.log(presentList);
     return (
       <>
-      <h2>Games</h2>
+      <RatingScreen gamesList={presentList} />
+      {/* <h2>Games</h2>
       <ul>
         {presentList.map((game) => (
          <div>
@@ -71,7 +72,7 @@ if (presentList.length >= 1)
           <p>{game.playingtime['_value']} minutes playing time</p>
          </div>
         ))}
-      </ul>
+      </ul> */}
     </>
     )
   } else {
