@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
@@ -32,37 +32,46 @@ const Button = styled.button`
 
 export default function RatingScreen(props) {
 
+    const [ratingState, setRatingState] = useState({
+        currentPosition: 0,
+        gamesList: props.gamesList
+    });
+
     const onSwipe = (direction) => {
         console.log('You swiped: ' + direction)
+        setRatingState({ ...ratingState, currentPosition: ratingState.currentPosition + 1 })
     }
 
     const onCardLeftScreen = (myIdentifier) => {
         console.log(myIdentifier + ' left the screen')
     }
 
-    var cards = props.gamesList.map((game, key) => {
+    var cards = ratingState.gamesList.map((game, key) => {
         //only showing a few cards at a time for performance reasons. Need to make sure that gamesList keys get updated when a card is swiped
-        if (key == 0) {
+        if (key == ratingState.currentPosition) {
             return (
                 <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
                     <GameCard game={game} />
                 </TinderCard>
             )
         }
-        else if (key <= 3) {
+        else if (key > ratingState.currentPosition && key <= ratingState.currentPosition + 3) {
             return <GameCard game={game} />;
         }
-        else{
+        else {
             return;
         }
     })
 
     return (
         <>
-        <CardContainer>
-            {cards.reverse()}
-        </CardContainer>
-        <Button>Next Player →</Button>
+            {ratingState.currentPosition < ratingState.gamesList.length ? (
+                <CardContainer>
+                    {cards.reverse()}
+                </CardContainer>)
+                :
+                <div>RATING COMPLETE</div>}
+            <Button>Next Player →</Button>
         </>
     )
 }

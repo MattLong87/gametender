@@ -77,7 +77,6 @@ const RadioOption = styled.div``;
 
 export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
-
   return (
     <Screen>
       <Container>
