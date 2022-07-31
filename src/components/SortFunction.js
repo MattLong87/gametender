@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import returnedData from '../games.json';
 
 
@@ -32,7 +31,11 @@ export default function SortFunction({formData}) {
    (gameA.playingtime['_value'] > gameB.playingtime['_value'] ? 1 : -1)
    );
 
-   const outputArray = gamesAtTarget.concat(sortedGamesUnder, sortedGamesOver);
+   const joinedArray = gamesAtTarget.concat(sortedGamesUnder, sortedGamesOver);
+
+   const outputArray = joinedArray.map((game) => {
+        return { ...game, votes: 0} //if there's no votes property, sets it to 1, otherwise increment by 1
+    })
 
  console.log ("Sorted:", outputArray); //return them in priority of target, shorter than, longer than
 //ultimately want to do this differently, just practice right now

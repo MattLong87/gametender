@@ -62,17 +62,7 @@ if (presentList.length >= 1)
     console.log(presentList);
     return (
       <>
-      <RatingScreen gamesList={presentList} />
-      {/* <h2>Games</h2>
-      <ul>
-        {presentList.map((game) => (
-         <div>
-          <h5>{game.name[0]['_value']}</h5>
-          <p>{game.minplayers['_value']} to {game.maxplayers['_value']} players</p>
-          <p>{game.playingtime['_value']} minutes playing time</p>
-         </div>
-        ))}
-      </ul> */}
+      <RatingScreen gamesList={presentList} formData={formData} />
     </>
     )
   } else {

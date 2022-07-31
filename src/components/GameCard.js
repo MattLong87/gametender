@@ -57,6 +57,7 @@ export default function GameCard(props) {
         <Card style={{ transform: `rotate(${Math.random() * 6 - 3}deg) translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)` }} frontCard={props.frontCard}>
             <GameImage style={{ backgroundImage: 'url("' + gameData.image + '")' }}></GameImage>
             <GameName>{name}</GameName>
+            <p>Votes: {`${gameData.votes}`}</p>
             <PlayTime>⏱ {gameData.playingtime['_value']} min</PlayTime>
         </Card>
     )

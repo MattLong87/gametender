@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
+import VoteSorter from "./VoteSorter";
 
 const CardContainer = styled.div`
     position: relative;
@@ -32,6 +33,8 @@ const Button = styled.button`
 
 export default function RatingScreen(props) {
 
+    const [finalDisplay, setFinalDisplay] = useState([]);
+
     const [ratingState, setRatingState] = useState({
         currentPosition: 0,
         playersCompleted: 0,
@@ -43,7 +46,7 @@ export default function RatingScreen(props) {
         if (direction === 'right') {
             const newGamesList = ratingState.gamesList.map((game, i) => {
                 if (ratingState.currentPosition == i) {
-                    return { ...game, votes: game.votes ? game.votes + 1 : 1 } //if there's no votes property, sets it to 1, otherwise increment by 1
+                    return { ...game, votes: game.votes ? game.votes + 1 : 1 } //NOTE: all should start with votes of 0 now ... if there's no votes property, sets it to 1, otherwise increment by 1
                 }
                 else {
                     return game;
@@ -77,7 +80,37 @@ export default function RatingScreen(props) {
         }
     })
 
-    return (
+    const handleClick = () =>   
+    {if (ratingState.playersCompleted + 1 == props.formData.playercount)
+      {
+        const finalArray = VoteSorter({ratingState});
+        setFinalDisplay(finalArray);
+      }
+   else 
+     {
+        setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 });
+        console.log(ratingState);
+     }
+   }
+
+    if (finalDisplay.length)
+    { return (
+        <>
+       <h2>Games</h2>
+      <ul>
+        {finalDisplay.map((game) => (
+         <div>
+          <h5>{game.name[0]['_value']}</h5>
+          <p>{game.votes} votes</p>
+          <p>{game.minplayers['_value']} to {game.maxplayers['_value']} players</p>
+          <p>{game.playingtime['_value']} minutes playing time</p>
+         </div>
+        ))}
+      </ul> 
+      </>
+      )
+    } else {
+      return (
         <>
             {ratingState.currentPosition < ratingState.gamesList.length ? (
                 <CardContainer>
@@ -85,7 +118,11 @@ export default function RatingScreen(props) {
                 </CardContainer>)
                 :
                 <div>RATING COMPLETE</div>}
-            <Button onClick={() => setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 })}>Next Player →</Button>
+            <Button onClick={handleClick}> 
+              Game {`${ratingState.currentPosition +1}`} of {`${ratingState.gamesList.length}`}. 
+              Player {`${ratingState.playersCompleted +1}`} of {`${props.formData.playercount}`}.
+              Next Player →
+            </Button>
         </>
-    )
+    )}
 }
