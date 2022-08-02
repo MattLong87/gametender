@@ -3,10 +3,23 @@ import styled from 'styled-components';
 import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
 import VoteSorter from "./VoteSorter";
+import ResultsScreen from './ResultsScreen';
+
+const Screen = styled.div`
+    display: grid;
+    grid-template-rows: 1fr max-content;
+    height: 100vh;
+`
 
 const CardContainer = styled.div`
     position: relative;
-    margin: 10vh 5vw;
+    margin: 13vh 5vw 0 5vw;
+`
+
+const BottomSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Button = styled.button`
@@ -21,14 +34,17 @@ const Button = styled.button`
     letter-spacing: 2px;
     margin-top: 20px;
     box-shadow: 0 2px 0px 1px hsl(0deg 0% 0%);
-    position: fixed;
-    bottom: 40px;
-    left: 5vw;
     width: 90vw;
     &:active{
       background-image: linear-gradient(342deg,#010014 0%,#751ab0 100%);
       box-shadow: inset 0 2px 0px 1px hsl(0deg 0% 0%);
     }
+`
+
+const Info = styled.div`
+    font-size: 14px;
+    color: #aaa;
+    margin: 10px 0 15px;
 `
 
 export default function RatingScreen(props) {
@@ -64,7 +80,7 @@ export default function RatingScreen(props) {
     }
 
     var cards = ratingState.gamesList.map((game, key) => {
-        //only showing a few cards at a time for performance reasons. Need to make sure that gamesList keys get updated when a card is swiped
+        //only showing a few cards at a time for performance reasons.
         if (key == ratingState.currentPosition) {
             return (
                 <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
@@ -80,49 +96,37 @@ export default function RatingScreen(props) {
         }
     })
 
-    const handleClick = () =>   
-    {if (ratingState.playersCompleted + 1 == props.formData.playercount)
-      {
-        const finalArray = VoteSorter({ratingState});
-        setFinalDisplay(finalArray);
-      }
-   else 
-     {
-        setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 });
-        console.log(ratingState);
-     }
-   }
+    const handleClick = () => {
+        if (ratingState.playersCompleted + 1 == props.formData.playercount) {
+            const finalArray = VoteSorter({ ratingState });
+            setFinalDisplay(finalArray);
+        }
+        else {
+            setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 });
+            console.log(ratingState);
+        }
+    }
 
-    if (finalDisplay.length)
-    { return (
-        <>
-       <h2>Games</h2>
-      <ul>
-        {finalDisplay.map((game) => (
-         <div>
-          <h5>{game.name[0]['_value']}</h5>
-          <p>{game.votes} votes</p>
-          <p>{game.minplayers['_value']} to {game.maxplayers['_value']} players</p>
-          <p>{game.playingtime['_value']} minutes playing time</p>
-         </div>
-        ))}
-      </ul> 
-      </>
-      )
+    if (finalDisplay.length) {
+        return (
+            <ResultsScreen finalDisplay={finalDisplay} />
+        )
     } else {
-      return (
-        <>
-            {ratingState.currentPosition < ratingState.gamesList.length ? (
-                <CardContainer>
-                    {cards.reverse()}
-                </CardContainer>)
-                :
-                <div>RATING COMPLETE</div>}
-            <Button onClick={handleClick}> 
-              Game {`${ratingState.currentPosition +1}`} of {`${ratingState.gamesList.length}`}. 
-              Player {`${ratingState.playersCompleted +1}`} of {`${props.formData.playercount}`}.
-              Next Player →
-            </Button>
-        </>
-    )}
+        return (
+            <Screen>
+                {ratingState.currentPosition < ratingState.gamesList.length ? (
+                    <CardContainer>
+                        {cards.reverse()}
+                    </CardContainer>)
+                    :
+                    <div>RATING COMPLETE</div>}
+                <BottomSection>
+                    <Button onClick={handleClick}>
+                        Next Player →
+                    </Button>
+                    <Info>Game {`${ratingState.currentPosition + 1}`} of {`${ratingState.gamesList.length}`}. Player {`${ratingState.playersCompleted + 1}`} of {`${props.formData.playercount}`}.</Info>
+                </BottomSection>
+            </Screen>
+        )
+    }
 }
