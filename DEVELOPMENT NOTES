@@ -4,8 +4,10 @@ TODO:
   Better sort: target time outward
   Swipe instructions
   
- OTHER FEATURES:
-   Cancel by down swipe
-   Make phone app
-   Alternate Vote screen (list)
+OTHER FEATURES:
+  Cancel by down swipe
+  Make phone app
+  Alternate Vote screen (list)
   
+BUGS:
+  Error when you click Next Player twice without swiping

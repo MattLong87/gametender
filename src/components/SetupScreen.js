@@ -2,29 +2,40 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import './radio-options.css';
 
-const Screen = styled.div`
-    display: flex;
-    flex-direction: column;
+const SetupForm = styled.form`
     align-items: center;
     justify-content: center;
     height: 100vh;
     color: #333;
+    padding: 20px;
+    display: grid;
+    grid-template-rows: 1fr max-content;
 `
 
-const Container = styled.div`
+const SetupCard = styled.div`
     border-radius: 8px;
-    width: 100vw;
-    min-height: 90vh;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
+    background: #fff;
+    --shadow-color: 0deg 0% 63%;
+    box-shadow: 0px 0.5px 0.6px hsl(var(--shadow-color) / 0.34),
+    0px 3px 3.4px -0.4px hsl(var(--shadow-color) / 0.34),
+    0.1px 5.5px 6.2px -0.7px hsl(var(--shadow-color) / 0.34),
+    0.1px 9.1px 10.2px -1.1px hsl(var(--shadow-color) / 0.34),
+    0.1px 14.5px 16.3px -1.4px hsl(var(--shadow-color) / 0.34),
+    0.2px 22.7px 25.5px -1.8px hsl(var(--shadow-color) / 0.34),
+    0.3px 34.4px 38.7px -2.1px hsl(var(--shadow-color) / 0.34),
+    0.5px 50.7px 57px -2.5px hsl(var(--shadow-color) / 0.34);
+    border-radius: 20px;
 `
 
 const Title = styled.h1`
     text-align: center;
     font-weight: 800;
-    font-size: 66px;
+    font-size: 35px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     margin-top: 0;
-    letter-spacing: -1px;
 `
 
 const Filter = styled.div`
@@ -42,7 +53,7 @@ const Label = styled.label`
 
 const DropDown = styled.select`
     font-size: 30px;
-    padding: 20px 32px;
+    padding: 10px 32px;
 `
 
 const Button = styled.button`
@@ -55,12 +66,9 @@ const Button = styled.button`
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 2px;
-    margin-top: 20px;
+    margin: 20px 0;
     box-shadow: 0 2px 0px 1px hsl(194deg 77% 37%);
-    position: fixed;
-    bottom: 40px;
-    left: 5vw;
-    width: 90vw;
+    width: 100%;
     &:active{
       background-image: linear-gradient(342deg,#08AEEA 0%,#1f7d52 100%);
       box-shadow: inset 0 2px 0px 1px hsl(194deg 77% 37%);
@@ -69,7 +77,7 @@ const Button = styled.button`
 
 const Input = styled.input`
     font-size: 30px;
-    padding: 20px 32px;
+    padding: 10px 32px;
     width: 100%;
 `
 
@@ -78,10 +86,10 @@ const RadioOption = styled.div``;
 export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
   return (
-    <Screen>
-      <Container>
+    <SetupForm onSubmit={handleSubmit}>
+      <SetupCard>
         <Title>Setup</Title>
-        <form onSubmit={handleSubmit}>
+        
           <Filter>
             <Label>BGG Username</Label>
             <Input onChange={(e) => console.log(e.target.value)} />
@@ -160,9 +168,8 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
               </RadioOption>
             </div>
           </Filter>
-          <Button onClick={() => handleSubmit}>START</Button>
-        </form>
-      </Container>
-    </Screen>
+      </SetupCard>
+      <Button onClick={() => handleSubmit}>START</Button>
+    </SetupForm>
   );
 };

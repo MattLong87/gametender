@@ -8,9 +8,10 @@ padding: 20px;
 const Title = styled.h1`
     text-align: center;
     font-weight: 800;
-    font-size: 66px;
+    font-size: 35px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
     margin-top: 0;
-    letter-spacing: -1px;
 `
 const GameList = styled.ul`
     padding: 0;
