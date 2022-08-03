@@ -5,7 +5,7 @@ import './radio-options.css';
 const SetupForm = styled.form`
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100%;
     color: #333;
     padding: 20px;
     display: grid;
@@ -66,7 +66,7 @@ const Button = styled.button`
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 2px;
-    margin: 20px 0;
+    margin: 30px 0 10px 0;
     box-shadow: 0 2px 0px 1px hsl(194deg 77% 37%);
     width: 100%;
     &:active{
