@@ -18,14 +18,10 @@ const SetupCard = styled.div`
     box-sizing: border-box;
     background: #fff;
     --shadow-color: 0deg 0% 63%;
-    box-shadow: 0px 0.5px 0.6px hsl(var(--shadow-color) / 0.34),
-    0px 3px 3.4px -0.4px hsl(var(--shadow-color) / 0.34),
-    0.1px 5.5px 6.2px -0.7px hsl(var(--shadow-color) / 0.34),
-    0.1px 9.1px 10.2px -1.1px hsl(var(--shadow-color) / 0.34),
-    0.1px 14.5px 16.3px -1.4px hsl(var(--shadow-color) / 0.34),
-    0.2px 22.7px 25.5px -1.8px hsl(var(--shadow-color) / 0.34),
-    0.3px 34.4px 38.7px -2.1px hsl(var(--shadow-color) / 0.34),
-    0.5px 50.7px 57px -2.5px hsl(var(--shadow-color) / 0.34);
+    box-shadow: 0px 0.5px 0.6px hsl(var(--shadow-color) / 0.37),
+    0px 1.7px 1.9px -0.8px hsl(var(--shadow-color) / 0.37),
+    0px 4.2px 4.7px -1.7px hsl(var(--shadow-color) / 0.37),
+    0.1px 10.3px 11.6px -2.5px hsl(var(--shadow-color) / 0.37);
     border-radius: 20px;
 `
 

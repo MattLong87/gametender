@@ -4,8 +4,10 @@ import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
 import xml2json from '../utils/xml2json';
 import SortFunction from './SortFunction';
+import iNoBounce from 'inobounce';
 
 function App() {
+  iNoBounce.enable();
 
   // const [bggData, setbggData] = useState();
   // const [dataFetched, setdataFetched] = useState(false);
