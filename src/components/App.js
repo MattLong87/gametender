@@ -5,6 +5,7 @@ import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
 import Logo from './Logo';
 import xml2json from '../utils/xml2json';
+import XMLParser from 'react-xml-parser';
 import SortFunction from './SortFunction';
 
 const AppContainer = styled.div`
@@ -64,10 +65,27 @@ function App() {
   //     });
   // }
 
+  // fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
+  //   .then(response => response.text())
+  //   .then(data => {
+  //     const collectionData = new XMLParser().parseFromString(data);
+  //     console.log(collectionData);
+  //     const gameIds = collectionData?.children.map(game => game.attributes.objectid);
+  //     console.log(gameIds);
+  //     fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+  //       .then(response => response.text())
+  //       .then(data => {
+  //         console.log('game data!');
+  //         const games = new XMLParser().parseFromString(data);
+  //         console.log(games);
+  //       });
+  //   });
+
+
   if (presentList.length >= 1) {
     console.log(presentList);
     return (
-        <RatingScreen gamesList={presentList} formData={formData} />
+      <RatingScreen gamesList={presentList} formData={formData} />
     )
   } else {
     return (
