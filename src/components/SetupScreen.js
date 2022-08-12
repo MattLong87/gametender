@@ -7,9 +7,14 @@ const SetupForm = styled.form`
     justify-content: center;
     min-height: 100%;
     color: #333;
-    padding: 20px;
+    padding: 0 20px 20px 20px;
     display: grid;
-    grid-template-rows: 1fr max-content;
+    grid-template-rows: auto 1fr max-content;
+`
+
+const HelperText = styled.div`
+    line-height: 1.3;
+    margin-bottom: 20px;
 `
 
 const SetupCard = styled.div`
@@ -83,6 +88,9 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
   return (
     <SetupForm onSubmit={handleSubmit}>
+      <HelperText>
+        Can't pick a game? No worries - we couldn't either. Enter your BoardGameGeek username and answer some questions about what you're looking for. Then, swipe to vote on what games sound fun. Once all players have voted, you can see which games your party is most excited about!
+      </HelperText>
       <SetupCard>
         <Title>Setup</Title>
         
