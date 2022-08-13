@@ -47,14 +47,14 @@ const Filter = styled.div`
 `
 
 const Label = styled.label`
-    font-size: 30px;
+    font-size: 22px;
     font-weight: 300;
     margin-bottom: 10px;
 `
 
 const DropDown = styled.select`
     font-size: 30px;
-    padding: 10px 32px;
+    padding: 6px 32px;
 `
 
 const Button = styled.button`
@@ -78,11 +78,9 @@ const Button = styled.button`
 
 const Input = styled.input`
     font-size: 30px;
-    padding: 10px 32px;
+    padding: 6px 32px;
     width: 100%;
 `
-
-const RadioOption = styled.div``;
 
 export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
@@ -92,86 +90,78 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
         Can't pick a game? No worries - we couldn't either. Enter your BoardGameGeek username and answer some questions about what you're looking for. Then, swipe to vote on what games sound fun. Once all players have voted, you can see which games your party is most excited about!
       </HelperText>
       <SetupCard>
-        <Title>Setup</Title>
-        
-          <Filter>
-            <Label>BGG Username</Label>
-            <Input onChange={(e) => console.log(e.target.value)} />
-          </Filter>
-          <Filter>
-            <Label htmlFor="playercount">Players</Label>
-            <DropDown
-              id="playercount"
-              name="playercount"
+        {/* <Title>Setup</Title> */}
+
+        <Filter>
+          <Label>BGG Username</Label>
+          <Input onChange={(e) => console.log(e.target.value)} />
+        </Filter>
+        <Filter>
+          <Label htmlFor="playercount">Players</Label>
+          <DropDown
+            id="playercount"
+            name="playercount"
+            onChange={handleChange}
+            value={formData.playercount}>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8+</option>
+          </DropDown>
+        </Filter>
+        <Filter>
+          <Label>Game Length</Label>
+          <div className="radio-options">
+            <input
+              id="short"
+              type="radio"
+              name="playtime"
               onChange={handleChange}
-              value={formData.playercount}>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8+</option>
-            </DropDown>
-          </Filter>
-          <Filter>
-            <Label>Game Length</Label>
-            <div className="radio-options">
-              <RadioOption>
-                <input
-                  id="short"
-                  type="radio"
-                  name="playtime"
-                  onChange={handleChange}
-                  value="30"
-                  checked={formData.playtime === "30"}
-                />
-                <Label htmlFor="short">
-                  Short
-                </Label>
-              </RadioOption>
-              <RadioOption>
-                <input
-                  id="average"
-                  type="radio"
-                  name="playtime"
-                  onChange={handleChange}
-                  value="60"
-                  checked={formData.playtime === "60"}
-                />
-                <Label htmlFor="average">
-                  Medium
-                </Label>
-              </RadioOption>
-              <RadioOption>
-                <input
-                  id="long"
-                  type="radio"
-                  name="playtime"
-                  onChange={handleChange}
-                  value="120"
-                  checked={formData.playtime === "120"}
-                />
-                <Label htmlFor="long">
-                  Long
-                </Label>
-              </RadioOption>
-              <RadioOption>
-                <input
-                  id="very long"
-                  type="radio"
-                  name="playtime"
-                  onChange={handleChange}
-                  value="240"
-                  checked={formData.playtime === "240"}
-                />
-                <Label htmlFor="very long">
-                  Very Long
-                </Label>
-              </RadioOption>
-            </div>
-          </Filter>
+              value="30"
+              checked={formData.playtime === "30"}
+            />
+            <Label htmlFor="short">
+              Under 30 Minutes
+            </Label>
+            <input
+              id="average"
+              type="radio"
+              name="playtime"
+              onChange={handleChange}
+              value="60"
+              checked={formData.playtime === "60"}
+            />
+            <Label htmlFor="average">
+              About an Hour
+            </Label>
+            <input
+              id="long"
+              type="radio"
+              name="playtime"
+              onChange={handleChange}
+              value="120"
+              checked={formData.playtime === "120"}
+            />
+            <Label htmlFor="long">
+              About Two Hours
+            </Label>
+            <input
+              id="very long"
+              type="radio"
+              name="playtime"
+              onChange={handleChange}
+              value="240"
+              checked={formData.playtime === "240"}
+            />
+            <Label htmlFor="very long">
+              Over Two Hours
+            </Label>
+          </div>
+        </Filter>
       </SetupCard>
       <Button onClick={() => handleSubmit}>START</Button>
     </SetupForm>
