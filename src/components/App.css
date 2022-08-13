@@ -1,5 +1,6 @@
 /* global styles */
-html, body{
+html,
+body {
   font-family: 'Work Sans', sans-serif;
   background-color: #fafafa;
 }
@@ -8,9 +9,11 @@ body * {
   box-sizing: border-box;
 }
 
-#root{
+#root {
   min-height: 100vh;
   display: flex;
   align-items: stretch;
   justify-content: center;
+  max-width: 500px;
+  margin: auto;
 }

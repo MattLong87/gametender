@@ -1,24 +1,24 @@
-.radio-options input{
+.radio-options input {
     display: none;
 }
-.radio-options input[type="radio"]:checked + label {
+
+.radio-options input[type="radio"]:checked+label {
     font-weight: bold;
+    border-color: rgb(0, 0, 0);
 }
 
-.radio-options{
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+.radio-options {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    background: #ddd;
     grid-gap: 1px;
 }
 
-.radio-options > div{
-    text-align: center;
-    background: #eee;
-    padding: 10px 0px;
-}
-
-.radio-options label{
+.radio-options label {
     font-size: 16px;
+    text-align: center;
+    background: #fff;
+    border: 2px solid #eee;
+    margin-bottom: 5px;
+    padding: 10px 0px;
 }

@@ -53,8 +53,16 @@ const PlayTime = styled.div`
 export default function GameCard(props) {
     const gameData = props.game;
     const name = gameData.name[0]['_value'];
+
+    //this is crazy but I found (very) pseudo random numbers from the game data to ensure they stayed consistent on re-render
+    //nothing else seemed to work (including useMemo())
+    const id = gameData['_id'];
+    const rotation = gameData.description.length % 2 == 0 ? id % 1000 / 1000 : -1 * id % 1000 / 1000;
+    const xTranslation = gameData.link.length % 2 == 0 ? id % 100 / 100 : -1 * id % 100 / 100 ;
+    const yTranslation = gameData.name.length & 2 == 0 ? id % 10 / 10 : -1 * id % 10 / 10;
+    
     return (
-        <Card style={{ transform: `rotate(${Math.random() * 6 - 3}deg) translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)` }} frontCard={props.frontCard}>
+        <Card style={{ transform: `rotate(${rotation * 6 - 3}deg) translate(${xTranslation * 6 - 3}px, ${yTranslation * 6 - 3}px)` }} frontCard={props.frontCard}>
             <GameImage style={{ backgroundImage: 'url("' + gameData.image + '")' }}></GameImage>
             <GameName>{name}</GameName>
             <p>Votes: {`${gameData.votes}`}</p>

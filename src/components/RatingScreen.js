@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
@@ -9,6 +9,7 @@ const Screen = styled.div`
     display: grid;
     grid-template-rows: 1fr max-content;
     height: 100vh;
+    max-width: 400px;
 `
 
 const CardContainer = styled.div`
@@ -35,6 +36,7 @@ const Button = styled.button`
     margin-top: 20px;
     box-shadow: 0 2px 0px 1px hsl(0deg 0% 0%);
     width: 90vw;
+    max-width: 400px;
     &:active{
       background-image: linear-gradient(342deg,#010014 0%,#751ab0 100%);
       box-shadow: inset 0 2px 0px 1px hsl(0deg 0% 0%);

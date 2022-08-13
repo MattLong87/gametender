@@ -1,9 +1,18 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import './App.css';
 import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
+import Logo from './Logo';
 import xml2json from '../utils/xml2json';
+import XMLParser from 'react-xml-parser';
 import SortFunction from './SortFunction';
+
+const AppContainer = styled.div`
+display: grid;
+grid-template-rows: auto 1fr;
+`
 
 function App() {
 
@@ -34,8 +43,8 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Submitted:", formData); 
-    const outputArray = SortFunction({formData});
+    console.log("Submitted:", formData);
+    const outputArray = SortFunction({ formData });
     setPresentList(outputArray);
   };
 
@@ -70,23 +79,38 @@ function App() {
 
   //Returns:
 
-if (presentList.length >= 1)
-  {
+  // fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
+  //   .then(response => response.text())
+  //   .then(data => {
+  //     const collectionData = new XMLParser().parseFromString(data);
+  //     console.log(collectionData);
+  //     const gameIds = collectionData?.children.map(game => game.attributes.objectid);
+  //     console.log(gameIds);
+  //     fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+  //       .then(response => response.text())
+  //       .then(data => {
+  //         console.log('game data!');
+  //         const games = new XMLParser().parseFromString(data);
+  //         console.log(games);
+  //       });
+  //   });
+
+
+  if (presentList.length >= 1) {
     console.log(presentList);
     return (
-      <>
       <RatingScreen gamesList={presentList} formData={formData} />
-    </>
     )
   } else {
     return (
-    <>
-      <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit}/>
-      {/* <RatingScreen /> */}
-      {/* {bggData && bggData.items.item.map((game, key) => {
+      <AppContainer>
+        <Logo name="GameTender" />
+        <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        {/* <RatingScreen /> */}
+        {/* {bggData && bggData.items.item.map((game, key) => {
         return <img src={game.thumbnail} key={key} />
       })} */}
-    </>
+      </AppContainer>
     )
   }
 }
