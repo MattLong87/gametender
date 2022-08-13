@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
@@ -7,15 +7,23 @@ import SortFunction from './SortFunction';
 
 function App() {
 
-  // const [bggData, setbggData] = useState();
-  // const [dataFetched, setdataFetched] = useState(false);
+  //States and Initial Variables
 
   let initialFormState = {
     playercount: "2",
     playtime: "30"
   };
 
+  const [bggData, setbggData] = useState({});
+  const [dataFetched, setdataFetched] = useState(false);
   const [formData, setFormData] = useState({ ...initialFormState });
+  const [presentList, setPresentList] = useState([]);
+  const [initialFetch, setInitialFetch] = useState ([]);
+ 
+
+  
+  //Handle functions
+
   const handleChange = ({ target }) => {
     const value = target.value;
     setFormData({
@@ -24,7 +32,6 @@ function App() {
     });
   };
 
-  const [presentList, setPresentList] = useState([])
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Submitted:", formData); 
@@ -32,30 +39,36 @@ function App() {
     setPresentList(outputArray);
   };
 
+  //API Call
+
+  useEffect(() => {
+    fetch('https://boardgamegeek.com/xmlapi2/collection?username=ianlukefinley&excludesubtype=boardgameexpansion')
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+      console.log(data);
+      const collectionData = JSON.parse(xml2json(data, ''))
+      console.log(collectionData);
+      setbggData(collectionData); //This isn't getting set, even though collectionData exists!
+      const gameIds = collectionData?.items.item.map(game => game['@objectid']);
+      fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+        .then(response => response.text())
+        .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+        .then(data => {
+          console.log(data)
+          const games = JSON.parse(xml2json(data, ''))  //But it's not doing what I want...
+          console.log(games)
+
+          //setInitialFetch(data);
+          //console.log (initialFetch); //hm. But it's not working...
+        })
+    });
+  }, [])
 
 
 
 
-  // if (!dataFetched) {
-  //   setdataFetched(true);
-  //   fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
-  //     .then(response => response.text())
-  //     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-  //     .then(data => {
-  //       const collectionData = JSON.parse(xml2json(data, ''))
-  //       setbggData(collectionData);
-  //       const gameIds = collectionData?.items.item.map(game => game['@objectid']);
-  //       fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
-  //         .then(response => response.text())
-  //         .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
-  //         .then(data => {
-  //           console.log('we have data')
-  //           console.log(data)
-  //           const games = JSON.parse(xml2json(data, ''));
-  //           console.log(games);
-  //         })
-  //     });
-  // }
+  //Returns:
 
 if (presentList.length >= 1)
   {
