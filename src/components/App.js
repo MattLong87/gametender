@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import SetupScreen from './SetupScreen';
@@ -23,14 +23,32 @@ function App() {
     playtime: "30"
   };
 
-  const [bggData, setbggData] = useState({});
-  const [dataFetched, setdataFetched] = useState(false);
   const [formData, setFormData] = useState({ ...initialFormState });
   const [presentList, setPresentList] = useState([]);
-  const [initialFetch, setInitialFetch] = useState ([]);
+  const [workableArray, setWorkableArray] = useState([]);
+
+
+  //API CALL
+  useEffect(() => {
+  fetch('https://boardgamegeek.com/xmlapi2/collection?username=ianlukefinley&excludesubtype=boardgameexpansion')
+  .then(response => response.text())
+  .then(data => {
+    const collectionData = new XMLParser().parseFromString(data);
+    //console.log(collectionData);
+    const gameIds = collectionData?.children.map(game => game.attributes.objectid);
+   //console.log(gameIds);
+   fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+     .then(response => response.text())
+     .then(data => {
+       //console.log('game data!');
+       const games = new XMLParser().parseFromString(data);
+       //console.log(games);
+       reformatFunction(games)
+     });
+ });
+}, []);
  
 
-  
   //Handle functions
 
   const handleChange = ({ target }) => {
@@ -48,7 +66,68 @@ function App() {
     setPresentList(outputArray);
   };
 
-  //API Call
+
+    function reformatFunction (games) {
+      const layerOne = games.children;
+      const layerThree = [];
+      const layerTwo = [];
+      //console.log (layerOne);
+      layerOne.forEach((element) => {  //for each...
+        const currentGame = element.children;
+        layerTwo.push(currentGame);
+        })                           
+      //console.log (layerTwo);
+      layerTwo.forEach((game) => {   //for each in layerTwo...
+        const gameContainer = {};                                 //create the hollow object
+        const nameAttribute = game.find((attribute) => attribute.name == "name" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.name = nameAttribute.attributes.value;
+        const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.thumbnail = thumbnailAttribute.value;
+        const minplayersAttribute = game.find((attribute) => attribute.name == "minplayers" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.minplayers = minplayersAttribute.attributes.value;
+        const maxplayersAttribute = game.find((attribute) => attribute.name == "maxplayers" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.maxplayers = maxplayersAttribute.attributes.value;
+        const playingtimeAttribute = game.find((attribute) => attribute.name == "playingtime" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.playingtime = playingtimeAttribute.attributes.value;
+        layerThree.push(gameContainer); //push now filled into layerThree 
+      })
+      console.log (layerThree)
+      setWorkableArray({layerThree}); //AHA!  Put it in an object to set it as a state
+      console.log(workableArray);
+   }
+
+
+    //Returns:
+
+  if (presentList.length >= 1) {
+    console.log(presentList);
+    return (
+      <RatingScreen gamesList={presentList} formData={formData} />
+    )
+  } else {
+    return (
+      <AppContainer>
+        <Logo name="GameTender" />
+        <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        {/* <RatingScreen /> */}
+        {/* {bggData && bggData.items.item.map((game, key) => {
+        return <img src={game.thumbnail} key={key} />
+      })} */}
+      </AppContainer>
+    )
+  }
+}
+
+export default App;
+
+
+
+
+//OLD API Call
+/*
+  const [bggData, setbggData] = useState({});
+  const [dataFetched, setdataFetched] = useState(false);
+
 
   useEffect(() => {
     fetch('https://boardgamegeek.com/xmlapi2/collection?username=ianlukefinley&excludesubtype=boardgameexpansion')
@@ -74,45 +153,4 @@ function App() {
     });
   }, [])
 
-
-
-
-  //Returns:
-
-  // fetch('https://boardgamegeek.com/xmlapi2/collection?username=Sforzando&excludesubtype=boardgameexpansion')
-  //   .then(response => response.text())
-  //   .then(data => {
-  //     const collectionData = new XMLParser().parseFromString(data);
-  //     console.log(collectionData);
-  //     const gameIds = collectionData?.children.map(game => game.attributes.objectid);
-  //     console.log(gameIds);
-  //     fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
-  //       .then(response => response.text())
-  //       .then(data => {
-  //         console.log('game data!');
-  //         const games = new XMLParser().parseFromString(data);
-  //         console.log(games);
-  //       });
-  //   });
-
-
-  if (presentList.length >= 1) {
-    console.log(presentList);
-    return (
-      <RatingScreen gamesList={presentList} formData={formData} />
-    )
-  } else {
-    return (
-      <AppContainer>
-        <Logo name="GameTender" />
-        <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
-        {/* <RatingScreen /> */}
-        {/* {bggData && bggData.items.item.map((game, key) => {
-        return <img src={game.thumbnail} key={key} />
-      })} */}
-      </AppContainer>
-    )
-  }
-}
-
-export default App;
+*/
