@@ -94,7 +94,12 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
         <Filter>
           <Label>BGG Username</Label>
-          <Input onChange={(e) => console.log(e.target.value)} />
+          <Input 
+          type = "text"
+          id = "playername"
+          name = "playername"
+          onChange={handleChange} 
+          value={formData.playername} />
         </Filter>
         <Filter>
           <Label htmlFor="playercount">Players</Label>

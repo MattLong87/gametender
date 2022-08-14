@@ -19,6 +19,7 @@ function App() {
   //States and Initial Variables
 
   let initialFormState = {
+    playername: " ",
     playercount: "2",
     playtime: "30"
   };
@@ -26,11 +27,13 @@ function App() {
   const [formData, setFormData] = useState({ ...initialFormState });
   const [presentList, setPresentList] = useState([]);
   const [workableArray, setWorkableArray] = useState([]);
+  const [callCounter, setCallCounter] = useState(0);
 
 
   //API CALL
   useEffect(() => {
-  fetch('https://boardgamegeek.com/xmlapi2/collection?username=ianlukefinley&excludesubtype=boardgameexpansion')
+  let url = formData.playername;
+  fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${url}&excludesubtype=boardgameexpansion`)
   .then(response => response.text())
   .then(data => {
     const collectionData = new XMLParser().parseFromString(data);
@@ -46,7 +49,7 @@ function App() {
        reformatFunction(games)
      });
  });
-}, [formData]);
+}, [callCounter]);
  
 
   //Handle functions
@@ -61,6 +64,8 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    let updatedCounter = callCounter + 1;
+    setCallCounter(updatedCounter);
     console.log("Submitted:", formData);
     const outputArray = SortFunction({ formData, workableArray });
     setPresentList(outputArray);
