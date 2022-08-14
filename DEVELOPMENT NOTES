@@ -1,24 +1,14 @@
-IANS DESPERATE NOTES FROM 8.6.22
-1. At 50, the JSON.parse does not turn the xml <data> into json <games>.  
-THis is perplexing, because the same syntax DOES turn the xml <data> into the json <collectionData at line 45.  
-Did this work once? I assume it must have for you to have copied the result into games.json manually, but now we get an error at that step.
+Ian's Notes - 8.14.22
+So close!  Everything works, except that the URL has to be put in manually.  Something about that API call isn't working.
 
-2. At 46, setbggData isn't actually setting the bggData state.  
-That doesn't matter so much there, but when I tried to set state later on, it also didn't make a change.  
-I'm not sure what's happening there, because other state variables are getting set properly.
+I think it has to do with when it's being called, which I can experiment with, but it could also be a protection from BGG.
 
-3.  This is all preliminary stuff, so I haven't even gotten to the meat of what I want to work on.  
-But if we can figure out the above, it should be straightforward. 
-I'm writing down the method here so I don't forget: wrap the API call in a useEffect.  
-Add a line to handleSubmit to update a state like userName to that is in the box when submitted, and add a dependency to the useEffect of userName. 
-That should mean it only gets called when we click submit.  Then, use ${} to put userName in the correct spot in the URL.  
-Finally, set the state of a variable to be the JSON that is meant to be at <games> and pass that into the sort function.
+Let's take a look at the error message and chat.  But very clsoe!
 
 
 TODO: 
   Manage API call
   Style all elements
-  Better sort: target time outward
   Swipe instructions
   
 OTHER FEATURES:
