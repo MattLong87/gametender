@@ -32,7 +32,7 @@ function App() {
 
   //API CALL
   useEffect(() => {
-  let url = formData.playername;
+  let url = "Sforzando";
   fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${url}&excludesubtype=boardgameexpansion`)
   .then(response => response.text())
   .then(data => {
