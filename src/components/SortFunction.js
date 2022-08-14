@@ -2,33 +2,33 @@ import React from 'react';
 import returnedData from '../games.json';
 
 
-export default function SortFunction({formData}) {
+export default function SortFunction({formData, workableArray}) {
 
-    var games = returnedData.items.item;
+    var games = workableArray.layerThree
 
    const gamesByPlayerCount = games.filter((game) =>
-     game.maxplayers['_value'] >= formData.playercount 
-     && game.minplayers['_value'] <= formData.playercount 
+     game.maxplayers >= formData.playercount 
+     && game.minplayers <= formData.playercount 
     );
 
    const gamesAtTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
-   parseInt(game.playingtime['_value']) == formData.playtime 
+   parseInt(game.playingtime) == formData.playtime 
   );
 
   const gamesUnderTarget = gamesByPlayerCount.filter((game) =>  //select games shorter than target...
-  parseInt(game.playingtime['_value'])  < formData.playtime 
+  parseInt(game.playingtime)  < formData.playtime 
   );
 
    const sortedGamesUnder = gamesUnderTarget.sort((gameA, gameB) => //and order them descending (closest to target and down)
-   (gameA.playingtime['_value'] < gameB.playingtime['_value'] ? 1 : -1)
+   (gameA.playingtime < gameB.playingtime ? 1 : -1)
    );
 
    const gamesOverTarget = gamesByPlayerCount.filter((game) => //select games longer than target...
-   parseInt(game.playingtime['_value'])  > formData.playtime 
+   parseInt(game.playingtime)  > formData.playtime 
    );
 
    const sortedGamesOver = gamesOverTarget.sort((gameA, gameB) => //and order them ascending (closet to target and up)
-   (gameA.playingtime['_value'] > gameB.playingtime['_value'] ? 1 : -1)
+   (gameA.playingtime > gameB.playingtime ? 1 : -1)
    );
 
    const joinedArray = gamesAtTarget.concat(sortedGamesUnder, sortedGamesOver);
@@ -37,7 +37,9 @@ export default function SortFunction({formData}) {
         return { ...game, votes: 0} //if there's no votes property, sets it to 1, otherwise increment by 1
     })
 
- console.log ("Sorted:", outputArray); //return them in priority of target, shorter than, longer than
+ console.log ("Sorted:", outputArray); 
+ //console.log ("Workable Array:", workableArray); 
+ //return them in priority of target, shorter than, longer than
 //ultimately want to do this differently, just practice right now
 
     return (outputArray);

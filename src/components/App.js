@@ -46,7 +46,7 @@ function App() {
        reformatFunction(games)
      });
  });
-}, []);
+}, [formData]);
  
 
   //Handle functions
@@ -62,10 +62,11 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Submitted:", formData);
-    const outputArray = SortFunction({ formData });
+    const outputArray = SortFunction({ formData, workableArray });
     setPresentList(outputArray);
   };
 
+//I'll move this into a different component eventually, just trying to make it work...
 
     function reformatFunction (games) {
       const layerOne = games.children;
@@ -89,10 +90,14 @@ function App() {
         gameContainer.maxplayers = maxplayersAttribute.attributes.value;
         const playingtimeAttribute = game.find((attribute) => attribute.name == "playingtime" ) ;                             //find each of the elements and put them in the hollow object
         gameContainer.playingtime = playingtimeAttribute.attributes.value;
+        const idAttribute = game.find((attribute) => attribute.name == "link" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.id = idAttribute.attributes.id;
+        const imageAttribute = game.find((attribute) => attribute.name == "image" ) ;                             //find each of the elements and put them in the hollow object
+        gameContainer.image = imageAttribute.value;
         layerThree.push(gameContainer); //push now filled into layerThree 
       })
-      console.log (layerThree)
-      setWorkableArray({layerThree}); //AHA!  Put it in an object to set it as a state
+      //console.log (layerThree)
+      setWorkableArray({layerThree}); //It doesn't want to show up at first, but it does later?
       console.log(workableArray);
    }
 

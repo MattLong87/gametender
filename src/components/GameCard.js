@@ -52,13 +52,13 @@ const PlayTime = styled.div`
 
 export default function GameCard(props) {
     const gameData = props.game;
-    const name = gameData.name[0]['_value'];
+    const name = gameData.name;
 
     //this is crazy but I found (very) pseudo random numbers from the game data to ensure they stayed consistent on re-render
     //nothing else seemed to work (including useMemo())
-    const id = gameData['_id'];
-    const rotation = gameData.description.length % 2 == 0 ? id % 1000 / 1000 : -1 * id % 1000 / 1000;
-    const xTranslation = gameData.link.length % 2 == 0 ? id % 100 / 100 : -1 * id % 100 / 100 ;
+    const id = gameData.id;
+    const rotation = gameData.name.length % 2 == 0 ? id % 1000 / 1000 : -1 * id % 1000 / 1000;
+    const xTranslation = gameData.thumbnail.length % 2 == 0 ? id % 100 / 100 : -1 * id % 100 / 100 ;
     const yTranslation = gameData.name.length & 2 == 0 ? id % 10 / 10 : -1 * id % 10 / 10;
     
     return (
@@ -66,7 +66,7 @@ export default function GameCard(props) {
             <GameImage style={{ backgroundImage: 'url("' + gameData.image + '")' }}></GameImage>
             <GameName>{name}</GameName>
             <p>Votes: {`${gameData.votes}`}</p>
-            <PlayTime>⏱ {gameData.playingtime['_value']} min</PlayTime>
+            <PlayTime>⏱ {gameData.playingtime} min</PlayTime>
         </Card>
     )
 }
