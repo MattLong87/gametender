@@ -5,7 +5,6 @@ import './App.css';
 import SetupScreen from './SetupScreen';
 import RatingScreen from './RatingScreen';
 import Logo from './Logo';
-import xml2json from '../utils/xml2json';
 import XMLParser from 'react-xml-parser';
 import SortFunction from './SortFunction';
 
@@ -32,25 +31,25 @@ function App() {
 
   //API CALL
   useEffect(() => {
-  let url = "Sforzando";
-  fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${url}&excludesubtype=boardgameexpansion`)
-  .then(response => response.text())
-  .then(data => {
-    const collectionData = new XMLParser().parseFromString(data);
-    //console.log(collectionData);
-    const gameIds = collectionData?.children.map(game => game.attributes.objectid);
-   //console.log(gameIds);
-   fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
-     .then(response => response.text())
-     .then(data => {
-       //console.log('game data!');
-       const games = new XMLParser().parseFromString(data);
-       //console.log(games);
-       reformatFunction(games)
-     });
- });
-}, [callCounter]);
- 
+    let url = "Sforzando";
+    fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${url}&excludesubtype=boardgameexpansion`)
+      .then(response => response.text())
+      .then(data => {
+        const collectionData = new XMLParser().parseFromString(data);
+        //console.log(collectionData);
+        const gameIds = collectionData?.children.map(game => game.attributes.objectid);
+        //console.log(gameIds);
+        fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+          .then(response => response.text())
+          .then(data => {
+            //console.log('game data!');
+            const games = new XMLParser().parseFromString(data);
+            //console.log(games);
+            reformatFunction(games)
+          });
+      });
+  }, [callCounter]);
+
 
   //Handle functions
 
@@ -71,43 +70,43 @@ function App() {
     setPresentList(outputArray);
   };
 
-//I'll move this into a different component eventually, just trying to make it work...
+  //I'll move this into a different component eventually, just trying to make it work...
 
-    function reformatFunction (games) {
-      const layerOne = games.children;
-      const layerThree = [];
-      const layerTwo = [];
-      //console.log (layerOne);
-      layerOne.forEach((element) => {  //for each...
-        const currentGame = element.children;
-        layerTwo.push(currentGame);
-        })                           
-      //console.log (layerTwo);
-      layerTwo.forEach((game) => {   //for each in layerTwo...
-        const gameContainer = {};                                 //create the hollow object
-        const nameAttribute = game.find((attribute) => attribute.name == "name" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.name = nameAttribute.attributes.value;
-        const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.thumbnail = thumbnailAttribute.value;
-        const minplayersAttribute = game.find((attribute) => attribute.name == "minplayers" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.minplayers = minplayersAttribute.attributes.value;
-        const maxplayersAttribute = game.find((attribute) => attribute.name == "maxplayers" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.maxplayers = maxplayersAttribute.attributes.value;
-        const playingtimeAttribute = game.find((attribute) => attribute.name == "playingtime" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.playingtime = playingtimeAttribute.attributes.value;
-        const idAttribute = game.find((attribute) => attribute.name == "link" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.id = idAttribute.attributes.id;
-        const imageAttribute = game.find((attribute) => attribute.name == "image" ) ;                             //find each of the elements and put them in the hollow object
-        gameContainer.image = imageAttribute.value;
-        layerThree.push(gameContainer); //push now filled into layerThree 
-      })
-      //console.log (layerThree)
-      setWorkableArray({layerThree}); //It doesn't want to show up at first, but it does later?
-      console.log(workableArray);
-   }
+  function reformatFunction(games) {
+    const layerOne = games.children;
+    const layerThree = [];
+    const layerTwo = [];
+    //console.log (layerOne);
+    layerOne.forEach((element) => {  //for each...
+      const currentGame = element.children;
+      layerTwo.push(currentGame);
+    })
+    //console.log (layerTwo);
+    layerTwo.forEach((game) => {   //for each in layerTwo...
+      const gameContainer = {};                                 //create the hollow object
+      const nameAttribute = game.find((attribute) => attribute.name == "name");                             //find each of the elements and put them in the hollow object
+      gameContainer.name = nameAttribute.attributes.value;
+      const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail");                             //find each of the elements and put them in the hollow object
+      gameContainer.thumbnail = thumbnailAttribute.value;
+      const minplayersAttribute = game.find((attribute) => attribute.name == "minplayers");                             //find each of the elements and put them in the hollow object
+      gameContainer.minplayers = minplayersAttribute.attributes.value;
+      const maxplayersAttribute = game.find((attribute) => attribute.name == "maxplayers");                             //find each of the elements and put them in the hollow object
+      gameContainer.maxplayers = maxplayersAttribute.attributes.value;
+      const playingtimeAttribute = game.find((attribute) => attribute.name == "playingtime");                             //find each of the elements and put them in the hollow object
+      gameContainer.playingtime = playingtimeAttribute.attributes.value;
+      const idAttribute = game.find((attribute) => attribute.name == "link");                             //find each of the elements and put them in the hollow object
+      gameContainer.id = idAttribute.attributes.id;
+      const imageAttribute = game.find((attribute) => attribute.name == "image");                             //find each of the elements and put them in the hollow object
+      gameContainer.image = imageAttribute.value;
+      layerThree.push(gameContainer); //push now filled into layerThree 
+    })
+    //console.log (layerThree)
+    setWorkableArray({ layerThree }); //It doesn't want to show up at first, but it does later?
+    console.log(workableArray);
+  }
 
 
-    //Returns:
+  //Returns:
 
   if (presentList.length >= 1) {
     console.log(presentList);

@@ -15,6 +15,7 @@ const SetupForm = styled.form`
 const HelperText = styled.div`
     line-height: 1.3;
     margin-bottom: 20px;
+    text-align: center;
 `
 
 const SetupCard = styled.div`
@@ -94,12 +95,12 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
 
         <Filter>
           <Label>BGG Username</Label>
-          <Input 
-          type = "text"
-          id = "playername"
-          name = "playername"
-          onChange={handleChange} 
-          value={formData.playername} />
+          <Input
+            type="text"
+            id="playername"
+            name="playername"
+            onChange={handleChange}
+            value={formData.playername} />
         </Filter>
         <Filter>
           <Label htmlFor="playercount">Players</Label>
