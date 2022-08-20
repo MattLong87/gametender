@@ -1,15 +1,8 @@
-Ian's Notes - 8.14.22
-So close!  Everything works, except that the URL has to be put in manually.  Something about that API call isn't working.
-
-I think it has to do with when it's being called, which I can experiment with, but it could also be a protection from BGG.
-
-Let's take a look at the error message and chat.  But very clsoe!
-
-
 TODO: 
-  Manage API call
-  Style all elements
   Swipe instructions
+  Loading indicator while fetch happens (can take some time to load even if data is ready)
+  Watch for response code and keep trying fetch while the backend prepares data - see https://boardgamegeek.com/wiki/page/BGG_XML_API
+  Show error message if collection not found
   
 OTHER FEATURES:
   Cancel by down swipe

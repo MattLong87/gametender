@@ -1,13 +1,16 @@
 export default function reformatBGGData(BGGData) {
     const layerOne = BGGData.children;
+    // console.log(BGGData)
     const layerThree = [];
     const layerTwo = [];
-    //console.log (layerOne);
+    // console.log (layerOne);
     layerOne.forEach((element) => {  //for each...
-      const currentGame = element.children;
+      let currentGame = element.children;
+      //add the id here to the end of the array
+      currentGame.push({name: 'id', id: element.attributes.id});
       layerTwo.push(currentGame);
     })
-    //console.log (layerTwo);
+    // console.log (layerTwo);
     layerTwo.forEach((game) => {   //for each in layerTwo...
       const gameContainer = {};                                 //create the hollow object
       const nameAttribute = game.find((attribute) => attribute.name == "name");                             //find each of the elements and put them in the hollow object
@@ -20,8 +23,8 @@ export default function reformatBGGData(BGGData) {
       gameContainer.maxplayers = maxplayersAttribute.attributes.value;
       const playingtimeAttribute = game.find((attribute) => attribute.name == "playingtime");                             //find each of the elements and put them in the hollow object
       gameContainer.playingtime = playingtimeAttribute.attributes.value;
-      const idAttribute = game.find((attribute) => attribute.name == "link");                             //find each of the elements and put them in the hollow object
-      gameContainer.id = idAttribute.attributes.id;
+      const idAttribute = game.find((attribute) => attribute.name == "id");                             //find each of the elements and put them in the hollow object
+      gameContainer.id = idAttribute.id;
       const imageAttribute = game.find((attribute) => attribute.name == "image");                             //find each of the elements and put them in the hollow object
       gameContainer.image = imageAttribute.value;
       layerThree.push(gameContainer); //push now filled into layerThree 

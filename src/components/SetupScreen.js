@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import './radio-options.css';
 
@@ -54,8 +54,8 @@ const Label = styled.label`
 `
 
 const DropDown = styled.select`
-    font-size: 30px;
-    padding: 6px 32px;
+    font-size: 26px;
+    padding: 12px 16px;
 `
 
 const Button = styled.button`
@@ -78,8 +78,8 @@ const Button = styled.button`
 `
 
 const Input = styled.input`
-    font-size: 30px;
-    padding: 6px 32px;
+    font-size: 20px;
+    padding: 12px 16px;
     width: 100%;
 `
 

@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
-import VoteSorter from "./VoteSorter";
+import VoteSorter from "../utils/VoteSorter";
 import ResultsScreen from './ResultsScreen';
 
 const Screen = styled.div`
@@ -51,11 +51,10 @@ const Info = styled.div`
 
 export default function RatingScreen(props) {
 
-    const [finalDisplay, setFinalDisplay] = useState([]);
-
     const [ratingState, setRatingState] = useState({
         currentPosition: 0,
         playersCompleted: 0,
+        ratingComplete: false,
         gamesList: props.gamesList
     });
 
@@ -100,8 +99,7 @@ export default function RatingScreen(props) {
 
     const handleClick = () => {
         if (ratingState.playersCompleted + 1 == props.formData.playercount) {
-            const finalArray = VoteSorter({ ratingState });
-            setFinalDisplay(finalArray);
+            setRatingState({ ...ratingState, ratingComplete: true })
         }
         else {
             setRatingState({ ...ratingState, currentPosition: 0, playersCompleted: ratingState.playersCompleted + 1 });
@@ -109,9 +107,9 @@ export default function RatingScreen(props) {
         }
     }
 
-    if (finalDisplay.length) {
+    if (ratingState.ratingComplete) {
         return (
-            <ResultsScreen finalDisplay={finalDisplay} />
+            <ResultsScreen finalDisplay={VoteSorter(ratingState.gamesList)} />
         )
     } else {
         return (
