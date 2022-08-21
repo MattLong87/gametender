@@ -26,6 +26,7 @@ function App() {
 
   const [formData, setFormData] = useState({ ...initialFormState });
   const [presentList, setPresentList] = useState([]);
+  const [waitingForData, setWaitingForData] = useState(false);
 
   //Handle functions
 
@@ -39,6 +40,10 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if(waitingForData){
+      return;
+    }
+    setWaitingForData(true);
     console.log("Submitted:", formData);
     fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
       .then(response => response.text())
@@ -53,6 +58,7 @@ function App() {
             //console.log('game data!');
             const bggData = new XMLParser().parseFromString(data);
             setPresentList(SortFunction(formData, reformatBGGData(bggData)));
+            setWaitingForData(false);
           });
       });
   };
@@ -67,7 +73,7 @@ function App() {
     return (
       <AppContainer>
         <Logo name="GameTender" />
-        <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} />
+        <SetupScreen formData={formData} handleChange={handleChange} handleSubmit={handleSubmit} waitingForData={waitingForData} />
       </AppContainer>
     )
   }

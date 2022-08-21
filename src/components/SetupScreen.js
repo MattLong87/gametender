@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import './radio-options.css';
+import LoadingDots from './LoadingDots';
 
 const SetupForm = styled.form`
     align-items: center;
@@ -11,13 +12,11 @@ const SetupForm = styled.form`
     display: grid;
     grid-template-rows: auto 1fr max-content;
 `
-
 const HelperText = styled.div`
     line-height: 1.3;
     margin-bottom: 20px;
     text-align: center;
 `
-
 const SetupCard = styled.div`
     border-radius: 8px;
     padding: 30px;
@@ -30,34 +29,21 @@ const SetupCard = styled.div`
     0.1px 10.3px 11.6px -2.5px hsl(var(--shadow-color) / 0.37);
     border-radius: 20px;
 `
-
-const Title = styled.h1`
-    text-align: center;
-    font-weight: 800;
-    font-size: 35px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-top: 0;
-`
-
 const Filter = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 40px;
 `
-
 const Label = styled.label`
     font-size: 22px;
     font-weight: 300;
     margin-bottom: 10px;
 `
-
 const DropDown = styled.select`
     font-size: 26px;
     padding: 12px 16px;
 `
-
 const Button = styled.button`
     background-color: #08AEEA;
     background-image: linear-gradient(342deg, #08AEEA 0%, #2AF598 100%);    
@@ -71,19 +57,19 @@ const Button = styled.button`
     margin: 30px 0 10px 0;
     box-shadow: 0 2px 0px 1px hsl(194deg 77% 37%);
     width: 100%;
+    min-height: 63px;
     &:active{
       background-image: linear-gradient(342deg,#08AEEA 0%,#1f7d52 100%);
       box-shadow: inset 0 2px 0px 1px hsl(194deg 77% 37%);
     }
 `
-
 const Input = styled.input`
     font-size: 20px;
     padding: 12px 16px;
     width: 100%;
 `
 
-export default function SetupScreen({ formData, handleChange, handleSubmit }) {
+export default function SetupScreen({ formData, handleChange, handleSubmit, waitingForData }) {
 
   return (
     <SetupForm onSubmit={handleSubmit}>
@@ -169,7 +155,7 @@ export default function SetupScreen({ formData, handleChange, handleSubmit }) {
           </div>
         </Filter>
       </SetupCard>
-      <Button onClick={() => handleSubmit}>START</Button>
+      <Button onClick={() => handleSubmit}>{waitingForData ? <LoadingDots /> : 'START'}</Button>
     </SetupForm>
   );
 };
