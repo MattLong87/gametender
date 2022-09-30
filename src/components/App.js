@@ -40,27 +40,37 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if(waitingForData){
+    if (waitingForData) {
       return;
     }
     setWaitingForData(true);
     console.log("Submitted:", formData);
-    fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
-      .then(response => response.text())
-      .then(data => {
-        const collectionData = new XMLParser().parseFromString(data);
-        //console.log(collectionData);
-        const gameIds = collectionData?.children.map(game => game.attributes.objectid);
-        //console.log(gameIds);
-        fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
-          .then(response => response.text())
-          .then(data => {
-            //console.log('game data!');
-            const bggData = new XMLParser().parseFromString(data);
-            setPresentList(SortFunction(formData, reformatBGGData(bggData)));
-            setWaitingForData(false);
-          });
-      });
+    var interval = setInterval(function () {
+      fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
+        .then(response => {
+          if (response.status === 202) {
+            return Promise.resolve();
+          }
+          clearInterval(interval);
+          return response.text();
+        })
+        .then(data => {
+          if (data) {
+            const collectionData = new XMLParser().parseFromString(data);
+            //console.log(collectionData);
+            const gameIds = collectionData?.children.map(game => game.attributes.objectid);
+            //console.log(gameIds);
+            fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+              .then(response => response.text())
+              .then(data => {
+                //console.log('game data!');
+                const bggData = new XMLParser().parseFromString(data);
+                setPresentList(SortFunction(formData, reformatBGGData(bggData)));
+                setWaitingForData(false);
+              });
+          }
+        });
+    }, 2000);
   };
 
   //Returns:
