@@ -82,3 +82,8 @@ body * {
 .loading li:nth-child(3) {
   animation-delay: 0.8s;
 }
+
+footer{
+  background: #26124a;
+  color: white;
+}
