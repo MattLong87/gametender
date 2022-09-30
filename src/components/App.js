@@ -45,6 +45,7 @@ function App() {
     }
     setWaitingForData(true);
     console.log("Submitted:", formData);
+    //Watch for response code and keep trying fetch while the backend prepares data - see https://boardgamegeek.com/wiki/page/BGG_XML_API
     var interval = setInterval(function () {
       fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
         .then(response => {
