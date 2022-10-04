@@ -50,7 +50,33 @@ const PlayTime = styled.div`
     font-size: 18px;
 `
 
+const TutorialCard = styled.div`
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 70% 30%;
+    height: 100%;
+    text-align: center;
+`
+
+const Section = styled.section`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+
 export default function GameCard(props) {
+    if(props.tutorial){
+        return (
+            <Card>
+                <TutorialCard>
+                    <Section>Swipe Left to pass on a game.</Section>
+                    <Section>Swipe Right to vote for a game.</Section>
+                    <Section style={{gridColumn: 'span 2'}}>Tap the Button to move on to the next player.</Section>
+                </TutorialCard>
+            </Card>
+        )
+    }
+
     const gameData = props.game;
     const name = gameData.name;
 

@@ -16,7 +16,6 @@ body * {
   justify-content: center;
   max-width: 500px;
   margin: auto;
-  border-top: 5px solid #160f24;
 }
 
 /* styles for loading dots from https://codepen.io/seanevd/pen/rLGeWV*/

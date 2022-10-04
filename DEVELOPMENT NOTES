@@ -1,6 +1,7 @@
 TODO: 
-  Swipe instructions
+  Swipe instructions - styling
   Show error message if collection not found
+  Randomize initial shuffle (respecting filter choices)
   
 OTHER FEATURES:
   Cancel by down swipe

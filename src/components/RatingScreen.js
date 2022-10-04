@@ -52,6 +52,7 @@ const Info = styled.div`
 export default function RatingScreen(props) {
 
     const [ratingState, setRatingState] = useState({
+        showTutorial: true,
         currentPosition: 0,
         playersCompleted: 0,
         ratingComplete: false,
@@ -69,10 +70,10 @@ export default function RatingScreen(props) {
                     return game;
                 }
             })
-            setRatingState({ ...ratingState, gamesList: newGamesList, ratingState, currentPosition: ratingState.currentPosition + 1 })
+            setRatingState({ ...ratingState, showTutorial: false, gamesList: newGamesList, ratingState, currentPosition: ratingState.currentPosition + 1 })
         }
         else if (direction === 'left') {
-            setRatingState({ ...ratingState, currentPosition: ratingState.currentPosition + 1 })
+            setRatingState({ ...ratingState, showTutorial: false, currentPosition: ratingState.currentPosition + 1 })
         }
     }
 
@@ -96,6 +97,14 @@ export default function RatingScreen(props) {
             return;
         }
     })
+
+    if(ratingState.showTutorial){
+        cards.unshift(
+            <TinderCard onSwipe={() => setRatingState({...ratingState, showTutorial: false})} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key="-1">
+                <GameCard tutorial={true} />
+            </TinderCard>
+        )
+    }
 
     const handleClick = () => {
         if (ratingState.playersCompleted + 1 == props.formData.playercount) {
