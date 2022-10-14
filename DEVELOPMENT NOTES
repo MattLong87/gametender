@@ -1,13 +1,26 @@
-TODO: 
-  Swipe instructions - styling
-  Show error message if collection not found
-  Randomize initial shuffle (respecting filter choices)
-  
-OTHER FEATURES:
-  Cancel by down swipe
-  Make phone app
-  Alternate Vote screen (list)
-  View game description
-  
-BUGS:
-  Fix cards on desktop browser
+
+PRERELEASE
+Format tutorial car - Matt
+parsing of special characters - Ian
+different list function:: limit to top 20 - Ian
+Randomize on the pull - Ian
+show error message if collectio not found - Matt & Ian
+...and other error messages - Matt & Ian
+Color by time length* - Ian makes tags, Matt turns tags color
+Tap for description* - Ian pulls desc from .xml, Matt makes tap happen
+
+
+RELEASE
+Analytics Tracking
+Contacting BGG
+Posting on BGG & Redit & FB & ...?
+Ask RIley
+ITERATE ON FEEDBACK
+Release Video
+
+POST RELEASE
+add toggle to vote screen...
+add vote screen
+NO with downswipe
+
+PHONE APP
