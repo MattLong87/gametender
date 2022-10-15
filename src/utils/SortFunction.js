@@ -58,8 +58,23 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime > gameB.playingtime ? 1 : -1)
    );
 
+   const joinedArray = gamesAtTarget.concat(sortedJustBelowTarget, sortedJustAboveTarget, sortedBelowTarget, sortedAboveTarget, sortedFarBelowTarget, sortedFarAboveTarget);
 
-   /*  Old Sort Functions
+   const truncatedArray = joinedArray.slice(0,21) //take only the top 20 in the sorted array.
+
+   const outputArray = truncatedArray.map((game) => {
+      return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
+   })
+
+   console.log("Sorted:", outputArray);
+   //console.log ("Workable Array:", workableArray); 
+   //return them in priority of target, shorter than, longer than
+   //ultimately want to do this differently, just practice right now
+
+   return (outputArray);
+
+
+      /*  Old Sort Functions
      const gamesUnderTarget = gamesByPlayerCount.filter((game) =>  //select games shorter than target...
      parseInt(game.playingtime)  < formData.playtime 
      );
@@ -76,17 +91,4 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime > gameB.playingtime ? 1 : -1)
       );
       */
-
-   const joinedArray = gamesAtTarget.concat(sortedJustBelowTarget, sortedJustAboveTarget, sortedBelowTarget, sortedAboveTarget, sortedFarBelowTarget, sortedFarAboveTarget);
-
-   const outputArray = joinedArray.map((game) => {
-      return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
-   })
-
-   console.log("Sorted:", outputArray);
-   //console.log ("Workable Array:", workableArray); 
-   //return them in priority of target, shorter than, longer than
-   //ultimately want to do this differently, just practice right now
-
-   return (outputArray);
 }
