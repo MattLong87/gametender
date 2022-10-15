@@ -5,11 +5,16 @@ export default function SortFunction(formData, games) {
       && game.minplayers <= formData.playercount
    );
 
-   const gamesAtTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   let shuffledArray = gamesByPlayerCount             //shuffles matching games, so we're not always seeing the same cards on top
+   .map(value => ({ value, sort: Math.random() }))   //pulled this logic from StackOverflow
+   .sort((a, b) => a.sort - b.sort)
+   .map(({ value }) => value);
+
+   const gamesAtTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) == formData.playtime
    );
 
-   const gamesJustBelowTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesJustBelowTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) < formData.playtime && parseInt(game.playingtime) > formData.playtime - 30
    );
 
@@ -17,7 +22,7 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime < gameB.playingtime ? 1 : -1)
    );
 
-   const gamesJustAboveTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesJustAboveTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) > formData.playtime && parseInt(game.playingtime) < formData.playtime + 30
    );
 
@@ -25,7 +30,7 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime > gameB.playingtime ? 1 : -1)
    );
 
-   const gamesBelowTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesBelowTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) < formData.playtime - 30 && parseInt(game.playingtime) > formData.playtime - 90
    );
 
@@ -33,7 +38,7 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime < gameB.playingtime ? 1 : -1)
    );
 
-   const gamesAboveTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesAboveTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) > formData.playtime + 30 && parseInt(game.playingtime) < formData.playtime + 90
    );
 
@@ -41,7 +46,7 @@ export default function SortFunction(formData, games) {
       (gameA.playingtime > gameB.playingtime ? 1 : -1)
    );
 
-   const gamesFarBelowTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesFarBelowTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) < formData.playtime - 90
    );
 
@@ -50,7 +55,7 @@ export default function SortFunction(formData, games) {
    );
 
 
-   const gamesFarAboveTarget = gamesByPlayerCount.filter((game) =>  //select games at the target length
+   const gamesFarAboveTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) > formData.playtime + 90
    );
 
@@ -62,12 +67,7 @@ export default function SortFunction(formData, games) {
 
    const truncatedArray = joinedArray.slice(0,20); //take only the top 20 in the sorted array.
 
-   let shuffledArray = truncatedArray              //shuffles those 20, so we're not always seeing the same cards on top
-   .map(value => ({ value, sort: Math.random() }))   //pulled this logic from StackOverflow
-   .sort((a, b) => a.sort - b.sort)
-   .map(({ value }) => value);
-
-   const outputArray = shuffledArray.map((game) => {
+   const outputArray = truncatedArray.map((game) => {
       return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
    });
 
