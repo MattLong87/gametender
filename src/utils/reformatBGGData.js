@@ -27,8 +27,10 @@ export default function reformatBGGData(BGGData) {
       gameContainer.id = idAttribute.id;
       const imageAttribute = game.find((attribute) => attribute.name == "image");                             //find each of the elements and put them in the hollow object
       gameContainer.image = imageAttribute.value;
+      const descriptionAttribute = game.find((attribute) => attribute.name == "description");                             //find each of the elements and put them in the hollow object
+      gameContainer.description = descriptionAttribute.value;
       layerThree.push(gameContainer); //push now filled into layerThree 
     })
-    // console.log (layerThree)
+    console.log (layerThree)
     return layerThree;
   }
