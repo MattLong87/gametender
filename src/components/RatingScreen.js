@@ -86,12 +86,12 @@ export default function RatingScreen(props) {
         if (key == ratingState.currentPosition) {
             return (
                 <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
-                    <GameCard game={game} frontCard={true} />
+                    <GameCard game={game} frontCard={true} requestedPlayTime={props.formData.playtime} />
                 </TinderCard>
             )
         }
         else if (key > ratingState.currentPosition && key <= ratingState.currentPosition + 3) {
-            return <GameCard game={game} key={key} />;
+            return <GameCard game={game} key={key} requestedPlayTime={props.formData.playtime} />;
         }
         else {
             return;

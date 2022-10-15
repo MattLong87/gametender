@@ -1,12 +1,10 @@
 
 PRERELEASE
-Format tutorial car - Matt
 parsing of special characters - Ian
 different list function:: limit to top 20 - Ian
 Randomize on the pull - Ian
 show error message if collectio not found - Matt & Ian
 ...and other error messages - Matt & Ian
-Color by time length* - Ian makes tags, Matt turns tags color
 Tap for description* - Ian pulls desc from .xml, Matt makes tap happen
 
 
