@@ -60,11 +60,16 @@ export default function SortFunction(formData, games) {
 
    const joinedArray = gamesAtTarget.concat(sortedJustBelowTarget, sortedJustAboveTarget, sortedBelowTarget, sortedAboveTarget, sortedFarBelowTarget, sortedFarAboveTarget);
 
-   const truncatedArray = joinedArray.slice(0,20) //take only the top 20 in the sorted array.
+   const truncatedArray = joinedArray.slice(0,20); //take only the top 20 in the sorted array.
 
-   const outputArray = truncatedArray.map((game) => {
+   let shuffledArray = truncatedArray              //shuffles those 20, so we're not always seeing the same cards on top
+   .map(value => ({ value, sort: Math.random() }))   //pulled this logic from StackOverflow
+   .sort((a, b) => a.sort - b.sort)
+   .map(({ value }) => value);
+
+   const outputArray = shuffledArray.map((game) => {
       return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
-   })
+   });
 
    console.log("Sorted:", outputArray);
    //console.log ("Workable Array:", workableArray); 

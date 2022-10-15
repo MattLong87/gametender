@@ -31,6 +31,6 @@ export default function reformatBGGData(BGGData) {
       gameContainer.description = descriptionAttribute.value;
       layerThree.push(gameContainer); //push now filled into layerThree 
     })
-    console.log (layerThree)
+    //console.log (layerThree)
     return layerThree;
   }

@@ -1,10 +1,9 @@
 
 PRERELEASE
 parsing of special characters - Ian
-Randomize on the pull - Ian
 show error message if collectio not found - Matt & Ian
 ...and other error messages - Matt & Ian
-Tap for description* - Ian pulls desc from .xml, Matt makes tap happen
+Tap for description* -  Matt makes tap happen
 
 
 RELEASE
