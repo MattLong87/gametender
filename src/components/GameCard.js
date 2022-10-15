@@ -56,22 +56,29 @@ const TutorialCard = styled.div`
     grid-template-rows: 70% 30%;
     height: 100%;
     text-align: center;
+    margin: 0 -20px;
 `
 
-const Section = styled.section`
+const TutorialSection = styled.section`
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 10px;
+`
+
+const TutorialIcon = styled.i`
+    font-size: 30px;
 `
 
 export default function GameCard(props) {
     if(props.tutorial){
         return (
-            <Card>
+            <Card style={{background: '#ffffffe8'}}>
                 <TutorialCard>
-                    <Section>Swipe Left to pass on a game.</Section>
-                    <Section>Swipe Right to vote for a game.</Section>
-                    <Section style={{gridColumn: 'span 2'}}>Tap the Button to move on to the next player.</Section>
+                    <TutorialSection style={{borderRight: '1px solid #dfdfdf'}}><TutorialIcon>👈</TutorialIcon>Swipe Left to pass on a game.</TutorialSection>
+                    <TutorialSection><TutorialIcon>👉</TutorialIcon>Swipe Right to vote for a game.</TutorialSection>
+                    <TutorialSection style={{gridColumn: 'span 2', borderTop: '1px solid #dfdfdf'}}>Tap the Button to move on to the next player.<TutorialIcon>👇</TutorialIcon></TutorialSection>
                 </TutorialCard>
             </Card>
         )
