@@ -1,5 +1,6 @@
 
 PRERELEASE
+Ian's solution for special characters isn't working (reformatBGGData.js 18 & 35), will continue to poke
 Error Messages: If no collection found; if no collection entered in; if no games match requirements; if don't receive response from BGG - Ian & Matt
 Tap for description* -  Matt makes tap happen
 Bugs: Why does the Game# of Total end up with one more game than total?; Rating Complete message looks out of place; voting output wants more testing
