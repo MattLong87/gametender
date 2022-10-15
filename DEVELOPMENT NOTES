@@ -1,8 +1,7 @@
 
 PRERELEASE
 parsing of special characters - Ian
-show error message if collectio not found - Matt & Ian
-...and other error messages - Matt & Ian
+Error Messages: If no collection found; if no collection input; if no games match requirements; if don't receive response from BGG - Ian & Matt
 Tap for description* -  Matt makes tap happen
 
 

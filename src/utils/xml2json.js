@@ -124,7 +124,10 @@ export default function xml2json(xml, tab) {
           return txt.replace(/[\\]/g, "\\\\")
                     .replace(/[\"]/g, '\\"')
                     .replace(/[\n]/g, '\\n')
-                    .replace(/[\r]/g, '\\r');
+                    .replace(/[\r]/g, '\\r')
+                    .replace(/&#39;/g, "'")  //added these three lines to account for special charcters in xml
+                    .replace(/&#38;/g, "&")
+                    .replace(/&#34;/g, "\"");
        },
        removeWhite: function(e) {
           e.normalize();
