@@ -9,7 +9,7 @@ const Title = styled.h1`
     text-align: center;
     font-weight: 500;
     font-size: 35px;
-    letter-spacing: 1px;
+    letter-spacing: -1px;
     text-transform: uppercase;
     margin-top: 0;
 `
