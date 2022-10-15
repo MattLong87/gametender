@@ -17,6 +17,7 @@ export default function reformatBGGData(BGGData) {
       const pulledName = nameAttribute.attributes.value;
       gameContainer.name = pulledName.replace(/&#39;/g, "'").replace(/&#38;/g, "&").replace(/&#34;/g, "\"");
        //added these lines to account for special charcters in xml
+      console.log(gameContainer.name);
       const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail");                             //find each of the elements and put them in the hollow object
       gameContainer.thumbnail = thumbnailAttribute.value;
       const minplayersAttribute = game.find((attribute) => attribute.name == "minplayers");                             //find each of the elements and put them in the hollow object
