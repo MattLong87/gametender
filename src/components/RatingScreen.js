@@ -133,8 +133,16 @@ export default function RatingScreen(props) {
                     <Button onClick={handleClick}>
                         Next Player →
                     </Button>
-                    <Info>Game {`${ratingState.currentPosition + 1}`} of {`${ratingState.gamesList.length}`}. Player {`${ratingState.playersCompleted + 1}`} of {`${props.formData.playercount}`}.</Info>
-                </BottomSection>
+                    {ratingState.currentPosition < ratingState.gamesList.length ? (
+                    <Info>
+                        Game {`${ratingState.currentPosition + 1}`} of {`${ratingState.gamesList.length}`}. Player {`${ratingState.playersCompleted + 1}`} of {`${props.formData.playercount}`}.
+                    </Info>)
+                    : (
+                        <Info>
+                            Voting Complete! Pass to Player {`${ratingState.playersCompleted + 2}`}.
+                        </Info>)
+                     }
+                    </BottomSection>
             </Screen>
         )
     }
