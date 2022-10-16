@@ -15,7 +15,7 @@ export default function reformatBGGData(BGGData) {
       const gameContainer = {};                                 //create the hollow object
       const nameAttribute = game.find((attribute) => attribute.name == "name");                             //find each of the elements and put them in the hollow object
       const pulledName = nameAttribute.attributes.value;
-      gameContainer.name = pulledName.replace("&#39;", "'").replace("&#38;", "&").replace("&#34;", "\"");
+      gameContainer.name = pulledName.replace("&#039;", "'").replace("&#038;", "&").replace("&#034;", "\"");
        //added these lines to account for special charcters in xml
       console.log(gameContainer.name);
       const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail");                             //find each of the elements and put them in the hollow object
@@ -31,8 +31,8 @@ export default function reformatBGGData(BGGData) {
       const imageAttribute = game.find((attribute) => attribute.name == "image");                             //find each of the elements and put them in the hollow object
       gameContainer.image = imageAttribute.value;
       const descriptionAttribute = game.find((attribute) => attribute.name == "description");                             //find each of the elements and put them in the hollow object
-      pulledDescription = descriptionAttribute.value;
-      gameContainer.description = pulledDescription.replace("&#39;", "'").replace("&#38;", "&").replace("&#34;", "\"");
+      const pulledDescription = descriptionAttribute.value;
+      gameContainer.description = pulledDescription.replace("&#039;", "'").replace("&#038;", "&").replace("&#034;", "\"");
        //added these lines to account for special charcters in xml
       layerThree.push(gameContainer); //push now filled into layerThree 
     })
