@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import getTimeColorBasedOnPlaytime from '../utils/getTimeColorBasedOnPlaytime';
+import { useState } from 'react';
 
 const Card = styled.div`
     border: 1px solid #ccc;
@@ -31,7 +32,6 @@ const Card = styled.div`
         0px 0.8px 0.9px -1.2px hsl(var(--shadow-color) / 0.34),
         0px 2px 2.3px -2.5px hsl(var(--shadow-color) / 0.34);`};
 `
-
 const GameImage = styled.div`
     background-size: contain;
     background-repeat: no-repeat;
@@ -39,18 +39,15 @@ const GameImage = styled.div`
     width: 100%;
     height: 100%;
 `
-
 const GameName = styled.span`
     font-size: 36px;
     margin-top: 20px;
     font-weight: 300;
     letter-spacing: -1px;
 `
-
 const PlayTime = styled.div`
     font-size: 18px;
 `
-
 const TutorialCard = styled.div`
     display: grid;
     grid-template-columns: 50% 50%;
@@ -59,7 +56,6 @@ const TutorialCard = styled.div`
     text-align: center;
     margin: 0 -20px;
 `
-
 const TutorialSection = styled.section`
     display: flex;
     flex-direction: column;
@@ -67,19 +63,25 @@ const TutorialSection = styled.section`
     align-items: center;
     padding: 0 10px;
 `
-
 const TutorialIcon = styled.i`
     font-size: 30px;
 `
+const GameDescription = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+`
 
 export default function GameCard(props) {
-    if(props.tutorial){
+    const [showDescription, setShowDescription] = useState(false);
+
+    if (props.tutorial) {
         return (
-            <Card style={{background: '#ffffffe8'}}>
+            <Card style={{ background: '#ffffffe8' }}>
                 <TutorialCard>
-                    <TutorialSection style={{borderRight: '1px solid #dfdfdf'}}><TutorialIcon>👈</TutorialIcon>Swipe Left to pass on a game.</TutorialSection>
+                    <TutorialSection style={{ borderRight: '1px solid #dfdfdf' }}><TutorialIcon>👈</TutorialIcon>Swipe Left to pass on a game.</TutorialSection>
                     <TutorialSection><TutorialIcon>👉</TutorialIcon>Swipe Right to vote for a game.</TutorialSection>
-                    <TutorialSection style={{gridColumn: 'span 2', borderTop: '1px solid #dfdfdf'}}>Tap the Button to move on to the next player.<TutorialIcon>👇</TutorialIcon></TutorialSection>
+                    <TutorialSection style={{ gridColumn: 'span 2', borderTop: '1px solid #dfdfdf' }}>Tap the Button to move on to the next player.<TutorialIcon>👇</TutorialIcon></TutorialSection>
                 </TutorialCard>
             </Card>
         )
@@ -93,15 +95,16 @@ export default function GameCard(props) {
     //nothing else seemed to work (including useMemo())
     const id = gameData.id;
     const rotation = gameData.name.length % 2 == 0 ? id % 1000 / 1000 : -1 * id % 1000 / 1000;
-    const xTranslation = gameData.thumbnail.length % 2 == 0 ? id % 100 / 100 : -1 * id % 100 / 100 ;
+    const xTranslation = gameData.thumbnail.length % 2 == 0 ? id % 100 / 100 : -1 * id % 100 / 100;
     const yTranslation = gameData.name.length & 2 == 0 ? id % 10 / 10 : -1 * id % 10 / 10;
 
     return (
         <Card style={{ transform: `rotate(${rotation * 6 - 3}deg) translate(${xTranslation * 6 - 3}px, ${yTranslation * 6 - 3}px)` }} frontCard={props.frontCard}>
             <GameImage style={{ backgroundImage: 'url("' + gameData.image + '")' }}></GameImage>
+            {showDescription && <GameDescription>{gameData.description}</GameDescription>}
             <GameName>{name}</GameName>
             <p>Votes: {`${gameData.votes}`}</p>
-            <PlayTime style={{color: getTimeColorBasedOnPlaytime(playtime, props.requestedPlayTime)}}>⏱ {playtime} min</PlayTime>
+            <PlayTime style={{ color: getTimeColorBasedOnPlaytime(playtime, props.requestedPlayTime) }}>⏱ {playtime} min</PlayTime>
         </Card>
     )
 }

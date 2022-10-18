@@ -5,7 +5,6 @@ export default function getTimeColorBasedOnPlaytime(playtime, requestedPlayTime)
     
     switch(requestedPlayTime){
         case '30':
-            console.log('we are here')
             if(playtime <= 30){
                 return green;
             }

@@ -49,6 +49,20 @@ const Info = styled.div`
     margin: 10px 0 15px;
 `
 
+const CompleteContainer = styled.div`
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+`
+
+const CompleteIcon = styled.i`
+    font-size: 60px;
+    color: #999;
+    margin-bottom: 20px;
+`
+
 export default function RatingScreen(props) {
 
     const [ratingState, setRatingState] = useState({
@@ -85,7 +99,7 @@ export default function RatingScreen(props) {
         //only showing a few cards at a time for performance reasons.
         if (key == ratingState.currentPosition) {
             return (
-                <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key={key}>
+                <TinderCard onSwipe={onSwipe} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']} key={key}>
                     <GameCard game={game} frontCard={true} requestedPlayTime={props.formData.playtime} />
                 </TinderCard>
             )
@@ -128,7 +142,7 @@ export default function RatingScreen(props) {
                         {cards.reverse()}
                     </CardContainer>)
                     :
-                    <div>RATING COMPLETE</div>}
+                    <CompleteContainer>Voting Complete!<CompleteIcon>✔</CompleteIcon></CompleteContainer>}
                 <BottomSection>
                     <Button onClick={handleClick}>
                         Next Player →
