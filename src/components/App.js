@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import './App.css';
 import SetupScreen from './SetupScreen';
@@ -81,7 +81,7 @@ function App() {
                 // console.log('game data!');
                 const bggData = new XMLParser().parseFromString(data);
                 // console.log(bggData)
-                if (bggData.children.length == 0) {
+                if (bggData.children.length === 0) {
                   setFormData({ ...formData, error: 'No games found in collection' });
                 }
                 const formattedGames = SortFunction(formData, reformatBGGData(bggData));
