@@ -44,17 +44,22 @@ const DropDown = styled.select`
     font-size: 26px;
     padding: 12px 16px;
 `
+const Error = styled.div`
+  margin-top: 20px;
+  color: #9e0000;
+  text-align: center;
+`
 const Button = styled.button`
     background-color: #08AEEA;
     background-image: linear-gradient(342deg, #08AEEA 0%, #2AF598 100%);    
     border: none;
     color: white;
     border-radius: 8px;
-    padding: 20px 0;
+    padding: 10px 0;
     font-size: 20px;
     font-weight: bold;
     letter-spacing: 2px;
-    margin: 30px 0 10px 0;
+    margin: 10px 0 10px 0;
     box-shadow: 0 2px 0px 1px hsl(194deg 77% 37%);
     width: 100%;
     min-height: 63px;
@@ -70,11 +75,10 @@ const Input = styled.input`
 `
 
 export default function SetupScreen({ formData, handleChange, handleSubmit, waitingForData }) {
-
   return (
     <SetupForm onSubmit={handleSubmit}>
       <HelperText>
-        Can't pick a game? No worries - we couldn't either. Enter your BoardGameGeek username and answer some questions about what you're looking for. Then, swipe to vote on what games sound fun. Once all players have voted, you can see which games your party is most excited about!
+        Can't pick a game? No worries - we couldn't either. Enter your BoardGameGeek username and answer some questions about what you're looking for. Then, swipe to vote on what games sound fun. Once everyone has voted, you can see which games your party is most excited about!
       </HelperText>
       <SetupCard>
         {/* <Title>Setup</Title> */}
@@ -155,6 +159,7 @@ export default function SetupScreen({ formData, handleChange, handleSubmit, wait
           </div>
         </Filter>
       </SetupCard>
+      <Error>{formData.error}</Error>
       <Button onClick={() => handleSubmit}>{waitingForData ? <LoadingDots /> : 'START'}</Button>
     </SetupForm>
   );

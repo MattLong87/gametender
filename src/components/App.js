@@ -19,9 +19,10 @@ function App() {
   //States and Initial Variables
 
   let initialFormState = {
-    playername: " ",
+    playername: "",
     playercount: "2",
-    playtime: "30"
+    playtime: "30",
+    error: ''
   };
 
   const [formData, setFormData] = useState({ ...initialFormState });
@@ -40,20 +41,33 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    //remove any previous errors
+    setFormData({ ...formData, error: '' });
+
     if (waitingForData) {
       return;
     }
+
+    if (!formData.playername) {
+      setFormData({ ...formData, error: 'Please enter your BoardGameGeek username.' })
+      return;
+    }
+
     setWaitingForData(true);
     console.log("Submitted:", formData);
     //Watch for response code and keep trying fetch while the backend prepares data - see https://boardgamegeek.com/wiki/page/BGG_XML_API
     var interval = setInterval(function () {
       fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
         .then(response => {
+          if(response.ok){
           if (response.status === 202) {
             return Promise.resolve();
           }
           clearInterval(interval);
           return response.text();
+        }
+        throw new Error('Unable to contact BoardGameGeek');
         })
         .then(data => {
           if (data) {
@@ -64,13 +78,28 @@ function App() {
             fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
               .then(response => response.text())
               .then(data => {
-                //console.log('game data!');
+                // console.log('game data!');
                 const bggData = new XMLParser().parseFromString(data);
-                setPresentList(SortFunction(formData, reformatBGGData(bggData)));
+                // console.log(bggData)
+                if (bggData.children.length == 0) {
+                  setFormData({ ...formData, error: 'No games found in collection' });
+                }
+                const formattedGames = SortFunction(formData, reformatBGGData(bggData));
+                if(!formattedGames.length){
+                  setFormData({ ...formData, error: 'No games in collection match specified filters' });
+                  setWaitingForData(false);
+                  return;
+                }
+                setPresentList(formattedGames);
                 setWaitingForData(false);
               });
           }
-        });
+        })
+        .catch(error => {
+          setFormData({ ...formData, error: 'BoardGameGeek user not found (or unable to contact BoardGameGeek)' });
+          setWaitingForData(false);
+          clearInterval(interval);
+        })
     }, 2000);
   };
 
