@@ -63,6 +63,33 @@ const CompleteIcon = styled.i`
     margin-bottom: 20px;
 `
 
+const VoteButton = styled.button`
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 26px;
+    background: white;
+    border: 2px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    --shadow-color: 0deg 0% 67%;
+    box-shadow: 0px 0.5px 0.7px hsl(var(--shadow-color) / 0.13),
+    0px 1px 1.4px -0.4px hsl(var(--shadow-color) / 0.33),
+    0.1px 2.2px 3.1px -0.7px hsl(var(--shadow-color) / 0.54);
+    &:active{
+        background: #dedede;
+    }
+`
+
+const VoteButtonsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+`
+
 export default function RatingScreen(props) {
 
     const [ratingState, setRatingState] = useState({
@@ -112,9 +139,9 @@ export default function RatingScreen(props) {
         }
     })
 
-    if(ratingState.showTutorial){
+    if (ratingState.showTutorial) {
         cards.unshift(
-            <TinderCard onSwipe={() => setRatingState({...ratingState, showTutorial: false})} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key="-1">
+            <TinderCard onSwipe={() => setRatingState({ ...ratingState, showTutorial: false })} onCardLeftScreen={() => onCardLeftScreen('fooBar')} preventSwipe={['right', 'left']} key="-1">
                 <GameCard tutorial={true} />
             </TinderCard>
         )
@@ -138,9 +165,16 @@ export default function RatingScreen(props) {
         return (
             <Screen>
                 {ratingState.currentPosition < ratingState.gamesList.length ? (
-                    <CardContainer>
-                        {cards.reverse()}
-                    </CardContainer>)
+                    <>
+                        <CardContainer>
+                            {cards.reverse()}
+                        </CardContainer>
+                        <VoteButtonsContainer>
+                        <VoteButton onClick={() => onSwipe('left')} style={{paddingTop: '5px'}}>👎</VoteButton>
+                        <VoteButton onClick={() => onSwipe('right')} style={{paddingBottom: '5px'}}>👍</VoteButton>
+                        </VoteButtonsContainer>
+                    </>
+                )
                     :
                     <CompleteContainer>Voting Complete!<CompleteIcon>✔</CompleteIcon></CompleteContainer>}
                 <BottomSection>
@@ -148,15 +182,15 @@ export default function RatingScreen(props) {
                         Next Player →
                     </Button>
                     {ratingState.currentPosition < ratingState.gamesList.length ? (
-                    <Info>
-                        Game {`${ratingState.currentPosition + 1}`} of {`${ratingState.gamesList.length}`}. Player {`${ratingState.playersCompleted + 1}`} of {`${props.formData.playercount}`}.
-                    </Info>)
-                    : (
                         <Info>
-                            Voting Complete! {ratingState.playersCompleted + 1 == props.formData.playercount ? 'Tap to view results.' : `Pass to Player ${ratingState.playersCompleted + 2}.`}
+                            Game {`${ratingState.currentPosition + 1}`} of {`${ratingState.gamesList.length}`}. Player {`${ratingState.playersCompleted + 1}`} of {`${props.formData.playercount}`}.
                         </Info>)
-                     }
-                    </BottomSection>
+                        : (
+                            <Info>
+                                Voting Complete! {ratingState.playersCompleted + 1 == props.formData.playercount ? 'Tap to view results.' : `Pass to Player ${ratingState.playersCompleted + 2}.`}
+                            </Info>)
+                    }
+                </BottomSection>
             </Screen>
         )
     }
