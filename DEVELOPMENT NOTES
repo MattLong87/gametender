@@ -2,12 +2,16 @@ PRERELEASE
 Tap for description* -  Matt makes tap happen
 Bugs: voting output wants more testing
 
+IMPROVEMENTS
+Buttons instead of swipe
+Start Over button
+Make duration field optional
+Small text after last player has finished swiping says to pass phone
+Choose how many games to show
+Error message if the server response is taking too long
+Card size on large desktop screens
+
 RELEASE
-Analytics Tracking
-Contacting BGG
-Posting on BGG & Redit & FB & ...?
-Ask Riley
-ITERATE ON FEEDBACK
 Release Video
 
 POST RELEASE

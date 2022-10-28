@@ -153,7 +153,7 @@ export default function RatingScreen(props) {
                     </Info>)
                     : (
                         <Info>
-                            Voting Complete! Pass to Player {`${ratingState.playersCompleted + 2}`}.
+                            Voting Complete! {ratingState.playersCompleted + 1 == props.formData.playercount ? 'Tap to view results.' : `Pass to Player ${ratingState.playersCompleted + 2}.`}
                         </Info>)
                      }
                     </BottomSection>
