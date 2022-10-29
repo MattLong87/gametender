@@ -19,7 +19,7 @@ export default function reformatBGGData(BGGData) {
        //added these lines to account for special charcters in xml
       console.log(gameContainer.name);
       const thumbnailAttribute = game.find((attribute) => attribute.name == "thumbnail");                             //find each of the elements and put them in the hollow object
-      gameContainer.thumbnail = thumbnailAttribute.value;
+      gameContainer.thumbnail = thumbnailAttribute?.value;
       const minplayersAttribute = game.find((attribute) => attribute.name == "minplayers");                             //find each of the elements and put them in the hollow object
       gameContainer.minplayers = minplayersAttribute.attributes.value;
       const maxplayersAttribute = game.find((attribute) => attribute.name == "maxplayers");                             //find each of the elements and put them in the hollow object
@@ -29,7 +29,7 @@ export default function reformatBGGData(BGGData) {
       const idAttribute = game.find((attribute) => attribute.name == "id");                             //find each of the elements and put them in the hollow object
       gameContainer.id = idAttribute.id;
       const imageAttribute = game.find((attribute) => attribute.name == "image");                             //find each of the elements and put them in the hollow object
-      gameContainer.image = imageAttribute.value;
+      gameContainer.image = imageAttribute?.value;
       const descriptionAttribute = game.find((attribute) => attribute.name == "description");                             //find each of the elements and put them in the hollow object
       const pulledDescription = descriptionAttribute.value;
       gameContainer.description = pulledDescription.replace("&#039;", "'").replace("&#038;", "&").replace("&#034;", "\"");
