@@ -1,22 +1,19 @@
-PRERELEASE
-Tap for description* -  Matt makes tap happen
-Bugs: voting output wants more testing
-
 IMPROVEMENTS
-Buttons instead of swipe
-Start Over button
-Make duration field optional
-Small text after last player has finished swiping says to pass phone
-Choose how many games to show
-Error message if the server response is taking too long
-Card size on large desktop screens
+Tap for description -  Matt
+Start Over button - Matt
+Drop down: how many games to show - Ian logic/component, Matt CSS
+Drop down: game length, with Doesn't matter option - Ian logic/component, Matt CSS
+Error message if the server response is taking too long - Matt
+Card size on large desktop screens - Matt
+release followup: bgg (Ian), facebook (Matt), etc.
 
-RELEASE
-Release Video
 
 POST RELEASE
 add toggle to vote screen...
 add vote screen
-NO with downswipe
+Release Video
+Consider: drop down for weight or categories
 
-PHONE APP
+LATER
+Phone App
+Room Code (and multiple collections)
