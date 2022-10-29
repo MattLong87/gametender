@@ -4,6 +4,7 @@ import TinderCard from 'react-tinder-card';
 import GameCard from './GameCard';
 import VoteSorter from "../utils/VoteSorter";
 import ResultsScreen from './ResultsScreen';
+import DescriptionButton from './DescriptionButton';
 
 const Screen = styled.div`
     display: grid;
@@ -171,6 +172,7 @@ export default function RatingScreen(props) {
                         </CardContainer>
                         <VoteButtonsContainer>
                         <VoteButton onClick={() => onSwipe('left')} style={{paddingTop: '5px'}}>👎</VoteButton>
+                        <DescriptionButton description={ratingState.gamesList[ratingState.currentPosition]['description'] ? ratingState.gamesList[ratingState.currentPosition]['description'] : null} />
                         <VoteButton onClick={() => onSwipe('right')} style={{paddingBottom: '5px'}}>👍</VoteButton>
                         </VoteButtonsContainer>
                     </>

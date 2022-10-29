@@ -32,7 +32,7 @@ export default function reformatBGGData(BGGData) {
       gameContainer.image = imageAttribute?.value;
       const descriptionAttribute = game.find((attribute) => attribute.name == "description");                             //find each of the elements and put them in the hollow object
       const pulledDescription = descriptionAttribute.value;
-      gameContainer.description = pulledDescription.replace("&#039;", "'").replace("&#038;", "&").replace("&#034;", "\"");
+      gameContainer.description = pulledDescription.replaceAll("&#039;", "'").replaceAll("&#038;", "&").replaceAll("&#034;", "\"").replaceAll('&amp;#10;&amp;#10;', ' ');
        //added these lines to account for special charcters in xml
       layerThree.push(gameContainer); //push now filled into layerThree 
     })
