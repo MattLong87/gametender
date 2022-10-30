@@ -119,7 +119,7 @@ export default function SetupScreen({ formData, handleChange, handleSubmit, wait
             <option value="5">Up to 5</option>
             <option value="10">Up to 10</option>
             <option value="20">Up to 20</option>
-            <option value="99">As many as I have!</option>
+            <option value="1500">As many as I have!</option>
           </DropDown>
         </Filter>
         <Filter>
