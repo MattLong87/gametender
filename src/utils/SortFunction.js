@@ -1,5 +1,7 @@
 export default function SortFunction(formData, games) {
 
+   const gamesToReturn = formData.gamesReturned;
+
    const gamesByPlayerCount = games.filter((game) =>
       game.maxplayers >= formData.playercount
       && game.minplayers <= formData.playercount
@@ -65,7 +67,7 @@ export default function SortFunction(formData, games) {
 
    const joinedArray = gamesAtTarget.concat(sortedJustBelowTarget, sortedJustAboveTarget, sortedBelowTarget, sortedAboveTarget, sortedFarBelowTarget, sortedFarAboveTarget);
 
-   const truncatedArray = joinedArray.slice(0,20); //take only the top 20 in the sorted array.
+   const truncatedArray = joinedArray.slice(0,gamesToReturn); //take only the top X in the sorted array, where X is gamesReturned
 
    const outputArray = truncatedArray.map((game) => {
       return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
