@@ -58,24 +58,36 @@ function App() {
     console.log("Submitted:", formData);
     //Watch for response code and keep trying fetch while the backend prepares data - see https://boardgamegeek.com/wiki/page/BGG_XML_API
     var interval = setInterval(function () {
-      fetch(`https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
+      fetch("https://corsproxy.io/?" + `https://boardgamegeek.com/xmlapi2/collection?username=${formData.playername}&own=1&excludesubtype=boardgameexpansion`)
         .then(response => {
-          if(response.ok){
-          if (response.status === 202) {
-            return Promise.resolve();
+          if (response.ok) {
+            if (response.status === 202) {
+              return Promise.resolve();
+            }
+            clearInterval(interval);
+            return response.text();
           }
-          clearInterval(interval);
-          return response.text();
-        }
-        throw new Error('Unable to contact BoardGameGeek');
+          throw new Error('Unable to contact BoardGameGeek');
         })
         .then(data => {
           if (data) {
             const collectionData = new XMLParser().parseFromString(data);
             //console.log(collectionData);
-            const gameIds = collectionData?.children.map(game => game.attributes.objectid);
-            //console.log(gameIds);
-            fetch(`https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
+            let gameIds = collectionData?.children.map(game => game.attributes.objectid);
+            //pick 20 random gameIds
+            if (gameIds.length > 20) {
+              function getRandomItems(arr, n) {
+                const result = [...arr];
+                for (let i = result.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [result[i], result[j]] = [result[j], result[i]];
+                }
+                return result.slice(0, n);
+              }
+
+              gameIds = getRandomItems(gameIds, 20);
+            }
+            fetch("https://corsproxy.io/?" + `https://boardgamegeek.com/xmlapi2/thing?id=${gameIds.join(',')}`)
               .then(response => response.text())
               .then(data => {
                 // console.log('game data!');
@@ -85,7 +97,7 @@ function App() {
                   setFormData({ ...formData, error: 'No games found in collection' });
                 }
                 const formattedGames = SortFunction(formData, reformatBGGData(bggData));
-                if(!formattedGames.length){
+                if (!formattedGames.length) {
                   setFormData({ ...formData, error: 'No games in collection match specified filters' });
                   setWaitingForData(false);
                   return;
@@ -97,6 +109,7 @@ function App() {
         })
         .catch(error => {
           setFormData({ ...formData, error: 'BoardGameGeek user not found (or unable to contact BoardGameGeek)' });
+          console.log(error)
           setWaitingForData(false);
           clearInterval(interval);
         })
