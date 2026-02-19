@@ -111,52 +111,17 @@ export default function SetupScreen({ formData, handleChange, handleSubmit, wait
         </Filter>
         <Filter>
           <Label>Game Length</Label>
-          <div className="radio-options">
-            <input
-              id="short"
-              type="radio"
-              name="playtime"
-              onChange={handleChange}
-              value="30"
-              checked={formData.playtime === "30"}
-            />
-            <Label htmlFor="short">
-              Under 30 Minutes
-            </Label>
-            <input
-              id="average"
-              type="radio"
-              name="playtime"
-              onChange={handleChange}
-              value="60"
-              checked={formData.playtime === "60"}
-            />
-            <Label htmlFor="average">
-              About an Hour
-            </Label>
-            <input
-              id="long"
-              type="radio"
-              name="playtime"
-              onChange={handleChange}
-              value="120"
-              checked={formData.playtime === "120"}
-            />
-            <Label htmlFor="long">
-              About Two Hours
-            </Label>
-            <input
-              id="very long"
-              type="radio"
-              name="playtime"
-              onChange={handleChange}
-              value="240"
-              checked={formData.playtime === "240"}
-            />
-            <Label htmlFor="very long">
-              Over Two Hours
-            </Label>
-          </div>
+          <DropDown
+            id="playtime"
+            name="playtime"
+            onChange={handleChange}
+            value={formData.playtime}>   
+            <option value="99">Play time doesn't matter</option>
+            <option value="30">About 30 mintutes</option>
+            <option value="60">About an hour</option>
+            <option value="120">About two hours</option>
+            <option value="240">Over two hours</option>
+          </DropDown>
         </Filter>
       </SetupCard>
       <Error>{formData.error}</Error>

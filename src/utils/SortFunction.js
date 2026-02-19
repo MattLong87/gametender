@@ -10,6 +10,22 @@ export default function SortFunction(formData, games) {
    .sort((a, b) => a.sort - b.sort)
    .map(({ value }) => value);
 
+   if (formData.playtime == 99) {
+      const shorterArray = shuffledArray.slice(0,gamesToReturn); //take only the top X in the sorted array, where X is gamesReturned
+
+      const outputArray = shorterArray.map((game) => {
+         return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1
+      });
+   
+      console.log("Sorted:", outputArray);
+      //console.log ("Workable Array:", workableArray); 
+      //return them in priority of target, shorter than, longer than
+      //ultimately want to do this differently, just practice right now
+   
+      return (outputArray);
+
+   }
+
    const gamesAtTarget = shuffledArray.filter((game) =>  //select games at the target length
       parseInt(game.playingtime) == formData.playtime
    );
@@ -64,8 +80,13 @@ export default function SortFunction(formData, games) {
    );
 
    const joinedArray = gamesAtTarget.concat(sortedJustBelowTarget, sortedJustAboveTarget, sortedBelowTarget, sortedAboveTarget, sortedFarBelowTarget, sortedFarAboveTarget);
+<<<<<<< Updated upstream
 
    const truncatedArray = joinedArray.slice(0,20); //take only the top 20 in the sorted array.
+=======
+      
+   const truncatedArray = joinedArray.slice(0,gamesToReturn); //take only the top X in the sorted array, where X is gamesReturned
+>>>>>>> Stashed changes
 
    const outputArray = truncatedArray.map((game) => {
       return { ...game, votes: 0 } //if there's no votes property, sets it to 1, otherwise increment by 1

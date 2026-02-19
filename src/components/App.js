@@ -21,8 +21,14 @@ function App() {
   let initialFormState = {
     playername: "",
     playercount: "2",
+<<<<<<< Updated upstream
     playtime: "30",
     error: ''
+=======
+    playtime: "99",
+    error: '',
+    gamesReturned: "1500"
+>>>>>>> Stashed changes
   };
 
   const [formData, setFormData] = useState({ ...initialFormState });
