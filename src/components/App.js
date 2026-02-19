@@ -22,7 +22,8 @@ function App() {
     playername: "",
     playercount: "2",
     playtime: "30",
-    error: ''
+    error: '',
+    gamesReturned: "20"
   };
 
   const [formData, setFormData] = useState({ ...initialFormState });

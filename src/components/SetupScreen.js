@@ -106,7 +106,20 @@ export default function SetupScreen({ formData, handleChange, handleSubmit, wait
             <option>5</option>
             <option>6</option>
             <option>7</option>
-            <option>8+</option>
+            <option value="8">8+</option>
+          </DropDown>
+        </Filter>
+        <Filter>
+          <Label htmlFor="gamesReturned">Vote on how many games?</Label> 
+          <DropDown
+            id="gamesReturned"
+            name="gamesReturned"
+            onChange={handleChange}
+            value={formData.gamesReturned}>   
+            <option value="5">Up to 5</option>
+            <option value="10">Up to 10</option>
+            <option value="20">Up to 20</option>
+            <option value="1500">As many as I have!</option>
           </DropDown>
         </Filter>
         <Filter>
